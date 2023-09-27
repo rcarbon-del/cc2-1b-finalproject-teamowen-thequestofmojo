@@ -2,7 +2,7 @@
 name = input("What is your name?")
 age = input("What is your age?")
 age = int(age)
-pi = 3.141592653589793238462643383279502884197169399375105820974944592307816406286
+pi = 3.141592653589793
 modulo = 5 % 3
 # Output
 print(f"Hello, {name}!")
