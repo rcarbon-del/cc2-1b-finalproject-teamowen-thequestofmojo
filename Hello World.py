@@ -1,3 +1,3 @@
 name = 'Radge'
 
-print('Hello, ' + name + '!')
+print(f"Hello, {name}!")
