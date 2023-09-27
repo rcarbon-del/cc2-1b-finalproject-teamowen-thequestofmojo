@@ -6,7 +6,7 @@ pi = 3.1415926535897932384626433832795028841971693993751058209749445923078164062
 modulo = 5 % 3
 # Output
 print(f"Hello, {name}!")
-print("Hello,",name, sep="%%%%", end="!")
+print("Hello,",name, sep="%%%%")
 print(f"My age next year is {age + 1}!")
 print(f"Pi value is {pi}!")
 print(f"Modulo is {modulo}!")
