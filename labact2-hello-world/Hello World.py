@@ -1,3 +1,8 @@
+# Submitted by: Carbonel, Radge Daryll A.
+# BSCS - 1
+# CC2 - 1B
+# September 27, 2023
+
 # Variables and Input
 name = input("What is your name?")
 age = input("What is your age?")
