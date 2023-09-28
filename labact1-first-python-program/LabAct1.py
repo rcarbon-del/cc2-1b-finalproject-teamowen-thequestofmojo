@@ -53,12 +53,12 @@ print("Age of Student 9: " + studentAge[8])
 print("Age of Student 10: " + studentAge[9])
 print("The average age of the students is: " + average)
 print("=================================")
-print("A student named " + names[0] + " and his friend named " + names[3] + """ were walking to school. When they were
-crossing a pedestrian lane, a truck at full speed came and killed """ + names[0] + " and " + names[3] + """. After a while, 
-they woke up surrounded by twin knights named """ + names[2] + " and " + names[4] + """. They were transported to the 
-kingdom of """ + kingdomNames[0] + ". A few days later, they were given " + equipmentNames[0] + " and " + equipmentNames[1] + """ and
-they also found out that the twin knights, """ + names[2] + " and " + names[4] + """, were the first knights of Duke Floyen. The twin knights
-taught """ + names[0] + " and " + names[3] + " abilities like " + abilities[0] + " and " + abilities[1] + """, which can be used in combat.
-After months of training, """ + names[0] + " and " + names[3] + " wanted to go to another kingdom named, " + kingdomNames[1] + """,
-where """ + names[1] + " was the ruler of the kingdom. They went and said their farewells to " + names[2] + " and " + names[4] + """. They 
-started their travels to go to the kingdom of """ + kingdomNames[1] + ", where they may encounter many problems and hindraces along the way.")
+print(f"""A student named {names[0]} and his friend named {names[3]} were walking to school. When they were
+crossing a pedestrian lane, a truck at full speed came and killed {names[0]} and {names[3]}. After a while, 
+they woke up surrounded by twin knights named {names[2]} and {names[4]}. They were transported to the kingdom 
+of {kingdomNames[0]}. A few days later, they were given {equipmentNames[0]} and {equipmentNames[1]} and they also 
+found out that the twin knights, {names[2]} and {names[4]}, were the first knights of Duke Floyen. The twin knights
+taught {names[0]} and {names[3]} abilities like {abilities[0]} and {abilities[1]}, which can be used in combat.
+After months of training, {names[0]} and {names[3]} wanted to go to another kingdom named, {kingdomNames[1]}, where 
+{names[1]} was the ruler of the kingdom. They went and said their farewells to {names[2]} and {names[4]}. They started 
+their travels to go to the kingdom of {kingdomNames[1]}, where they may encounter many problems and hindraces along the way.""")
