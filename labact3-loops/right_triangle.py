@@ -7,3 +7,4 @@ while rows <= final_rows:
     print(i, end=" ") 
   print()
   rows += 1
+# End of program
