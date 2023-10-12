@@ -9,5 +9,6 @@ while rows <= final_rows:
   for i in range(1, rows+1): 
     print(i, end=" ") 
   print()
+  print()
   rows += 1
 # End of program
