@@ -1,4 +1,4 @@
-# Inverse Right Traingle
+# Inverse Right Triangle
 
 # Variables
 rows = 5 # starting amount of rows
