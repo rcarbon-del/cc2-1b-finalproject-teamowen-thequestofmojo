@@ -2,8 +2,9 @@ import random
 
 bossHealth = random.randint(1500, 2000)
 health = random.randint(1000, 1500)
-weaponDamage = 50
+initialWeaponDamage = 50
 healCounter = 3
+
 while bossHealth or health == True:
     if health >= 0:
         print("What will you do?")
@@ -14,7 +15,7 @@ while bossHealth or health == True:
         choice = input("Enter choice: ")
         print()
         if choice == "1": 
-            dmg = random.randint(weaponDamage, weaponDamage+200)
+            dmg = random.randint(initialWeaponDamage, initialWeaponDamage+200)
             bossHealth -= dmg
             if bossHealth <= 0:
                 bossHealth = 0
