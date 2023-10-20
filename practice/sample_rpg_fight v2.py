@@ -1,4 +1,5 @@
 import random
+import time
 
 bossHealth = random.randint(1500, 2000)
 health = 700
@@ -20,11 +21,15 @@ while bossHealth or health == True:
         print()
         choice = input("Enter choice: ")
         print()
+        time.sleep(0.5)
+
         if choice == "1": 
             dmg = random.randint(initialWeaponDamage, initialWeaponDamage+200)
             bossHealth -= dmg
             if bossHealth <= 0:
                 bossHealth = 0
+                if dmg >= 175:
+                    print("Critical hit!")
                 print("You dealt", dmg, "damage to the boss!")
                 print("The boss has", bossHealth, "health left!")
                 print()
@@ -35,7 +40,8 @@ while bossHealth or health == True:
                 print("You dealt", dmg, "damage to the boss!")
                 print("The boss has", bossHealth, "health left!")
                 print()
-            
+            time.sleep(0.5)
+
             bossdmg = random.randint(10, 100)
             health -= bossdmg
             if bossHealth >= 0:
@@ -51,13 +57,15 @@ while bossHealth or health == True:
                         print("The attack was super effective!")
                     print("You have", health, "health left!")
                     print()
+            time.sleep(0.5)
             end = input("Press enter to continue...")
+            time.sleep(0.1)
             clearOutput(14)
             if dmg >= 175:
                 clearOutput(1)
             if bossdmg >= 75:
                 clearOutput(1)
-
+        
         elif choice == "2":
             if healCounter > 0:
                 heal = random.randint(75, 125)
@@ -73,13 +81,15 @@ while bossHealth or health == True:
                     print()
                 healCounter -= 1
                 end = input("Press enter to continue...")     
+                time.sleep(0.1)
                 clearOutput(11)           
             else:
                 print("You have no more heals left!")
                 print()
                 end = input("Press enter to continue...")
+                time.sleep(0.1)
                 clearOutput(10)
-
+            
         elif choice == "3":
             print("You ran away!")
             break
@@ -87,11 +97,11 @@ while bossHealth or health == True:
             clearOutput(7)
 
 if health == 0:
-        print("Game over!")
-        print()
-        print("You died!")
+    print("You died!")
+    print()
+    print("Game over!")
 elif bossHealth == 0:
-        print("You won!")
+    print("You won!")
 print()
 end = input("Press enter to exit...")
 
