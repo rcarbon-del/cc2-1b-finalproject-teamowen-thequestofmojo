@@ -1,6 +1,4 @@
 import random
-import os
-from turtle import clearscreen
 
 bossHealth = random.randint(1500, 2000)
 health = random.randint(1000, 1500)
@@ -46,8 +44,6 @@ while bossHealth or health == True:
                         print("The attack was super effective!")
                     print("You have", health, "health left!")
                     print()
-            continueInput = input("Press enter to continue...")
-            os.system('cls' if os.name == 'nt' else 'clear')
 
         elif choice == "2":
             if healCounter > 0:
@@ -66,8 +62,6 @@ while bossHealth or health == True:
             else:
                 print("You have no more heals left!")
                 print()
-            continueInput = input("Press enter to continue...")
-            os.system('cls' if os.name == 'nt' else 'clear')
             
         elif choice == "3":
             print("You ran away!")
@@ -83,4 +77,6 @@ if health == 0:
 elif bossHealth == 0:
         print("You won!")
 print()
+end = input("Press enter to exit...")
+
         
