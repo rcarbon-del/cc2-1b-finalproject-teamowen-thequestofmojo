@@ -1,7 +1,5 @@
-from math import e
 import random
 import time
-from turtle import clear
 
 # Clear output
 def clearOutput(numberOfLines: int):
@@ -17,7 +15,7 @@ def welcomeScreen():
     time.sleep(2)
     print()
     print("""The Quest of Mojo is a role-playing game (RPG) that takes place 
-    in a post-apocalyptic Nexus, beginning in the year 1751.""")
+in a post-apocalyptic Nexus, beginning in the year 1751.""")
     time.sleep(2)
     print()
     print("1. Start")
@@ -31,16 +29,17 @@ def welcomeScreen():
         clearOutput(11)
         print("""The Quest of Mojo was created by:
         
-          Bulatao, Chris Owyn
-          Carbonel, Radge Daryll
-          Carbonell, Jennylyn
-          Cero, Wyatt
+    Bulatao, Chris Owyn
+    Carbonel, Radge Daryll
+    Carbonell, Jennylyn
+    Cero, Wyatt
               
-        For completion of the requirements for the course,
-        Introduction to Computer Programming | CITCS 1B,
-        taught by Sir Jerry Junior Pacalso.""")
-        end = input("Press enter to continue...")
-        clearOutput(11)
+For completion of the requirements for the course,
+Introduction to Computer Programming | CITCS 1B,
+taught by Sir Jerry Junior Pacalso.""")
+        print()
+        end = input("Press enter to return...")
+        clearOutput(12)
         welcomeScreen()
 
     elif titleChoice == "3":
@@ -57,17 +56,36 @@ print()
 time.sleep(1)
 
 #Character creation
-print("You are a young adventurer who lives alone.")
-time.sleep(5)
-clearOutput(1)
-
-
 print("As you open your eyes, the light of day shines through your window.")
 time.sleep(5)
 clearOutput(1)
 time.sleep(3)
 
+print("You wake up in a small room.")
+time.sleep(5)
+clearOutput(1)
+
 print("Suddenly, You hear someone speaking to you.")
 time.sleep(1.5)
 print()
-user = input('"Young one, what is your name?" ')
+user = input('"Master, what is your name?" ')
+clearOutput(3)
+
+print("You reply, " + user + ".")
+time.sleep(5)
+clearOutput(1)
+
+print("The voice replies,")
+time.sleep(1.5)
+print()
+print('"Ah, ' + user + ' , I see you that are awake."')
+time.sleep(5)
+clearOutput(3)
+
+print("You look around the room and see a tablet.")
+time.sleep(2)
+print()
+print("The tablet says,")
+time.sleep(1.5)
+print()
+print('"You are in the year 1751, in the post-apocalyptic Nexus."')
