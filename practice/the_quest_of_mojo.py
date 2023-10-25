@@ -68,7 +68,7 @@ clearOutput(1)
 print("Suddenly, You hear someone speaking to you.")
 time.sleep(1.5)
 print()
-user = input('"Master, what is your name?" ')
+user = input('"Young one, what is your name?" ')
 clearOutput(3)
 
 print("You reply, " + user + ".")
@@ -82,10 +82,29 @@ print('"Ah, ' + user + ' , I see you that are awake."')
 time.sleep(5)
 clearOutput(3)
 
-print("You look around the room and see a tablet.")
+print("You look around the room and see a book.")
 time.sleep(2)
 print()
-print("The tablet says,")
+print("The book says,")
 time.sleep(1.5)
 print()
-print('"You are in the year 1751, in the post-apocalyptic Nexus."')
+print(""""Nexus: The World of Peace"
+    The blessed world brought by the gods. Ever since the start 
+of time, the world was at peace. The gods have given the people 
+of Nexus the power of magic. The people of Nexus used magic to 
+help the world. The world was at peace for a thousand years. But, 
+the gods have left the world of Nexus. However, the gods left a 
+gift for the people of Nexus. The gift was the magical stone, 
+Citrine. Citrine is the most powerful and dangerous 
+object in the world. It gave the people the ability to use 
+magic without the help of gods.""")
+time.sleep(1)
+print()
+end = input("Press enter to flip to the next page...")
+clearOutput(16)
+
+print("You flip the page, it says,")
+time.sleep(1.5)
+print()
+print(""""The Fall of Nexus"
+The world of Nexus was at peace for a thousand years. Until""")
