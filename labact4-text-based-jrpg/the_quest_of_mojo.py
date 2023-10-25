@@ -1,5 +1,8 @@
+from logging import critical
 import random
 import time
+import os
+from turtle import clear
 
 # Variables
 kingdomNames = ["Nexus", "Arkdemn"]
@@ -10,7 +13,7 @@ magicalStone = "Citrine"
 health = random.randint(800, 1000)
 attack = random.randint(1, 25)
 defense = random.randint(1, 25)
-healCounter = 3
+healCounter = 10
 
 # Functions
 # Clear output function
@@ -64,20 +67,19 @@ taught by Sir Jerry Junior Pacalso.""")
 
 #Enemy fight function
 def enemyFight():
-    enemyHealth = random.randint(1500, 2000)
+    enemyHealth = random.randint(250, 500)
+    criticalHit = 0
     global health
     global healCounter
     global attack
     global defense
 
-    def clearOutput(numberOfLines: int):
-        cursorUpOne = '\x1b[1A'
-        erase = '\x1b[2K'
-        for _ in range(numberOfLines):
-            print(cursorUpOne + erase, end='')
-
+    print("------------------------------------------------------------")
+    print()
     while health > 0:
         if health >= 0:
+            print(f"Attack: {attack} | Defense: {defense} | Health: {health} | Enemy Health: {enemyHealth}")
+            print()
             print("What will you do?")
             print("1. Attack")
             print(f"2. Heal ({healCounter} left)")
@@ -88,44 +90,47 @@ def enemyFight():
             time.sleep(0.5)
 
             if choice == "1": 
-                dmg = random.randint(attack, attack+200)
+                dmg = random.randint(attack, attack+125)
                 enemyHealth -= dmg
                 if enemyHealth <= 0:
                     enemyHealth = 0
-                    if dmg >= 175:
+                    if dmg >= 150:
                         print("Critical hit!")
+                        criticalHit += 1
                     print("You dealt", dmg, "damage to the enemy!")
                     print("The enemy has", enemyHealth, "health left!")
                     print()
                     break
                 else:
-                    if dmg >= 175:
+                    if dmg >= 150:
                         print("Critical hit!")
                     print("You dealt", dmg, "damage to the enemy!")
                     print("The enemy has", enemyHealth, "health left!")
                     print()
                 time.sleep(0.5)
 
-                enemydmg = random.randint(10, 100)
+                enemydmg = random.randint(defense+20, 100)
                 enemydmg -= defense
                 health -= enemydmg
                 if enemyHealth >= 0:
                     if health <= 0:
                         health = 0
                         print("The enemy dealt", enemydmg, "damage to you!")
+                        if enemydmg >= 100:
+                            print("The attack was super effective!")
                         print("You have", health, "health left!")
                         print()
                         break
                     else:
                         print("The enemy dealt", enemydmg, "damage to you!")
-                        if enemydmg >= 75:
+                        if enemydmg >= 100:
                             print("The attack was super effective!")
                         print("You have", health, "health left!")
                         print()
                 time.sleep(0.5)
                 end = input("Press enter to continue...")
                 time.sleep(0.1)
-                clearOutput(14)
+                clearOutput(16)
                 if dmg >= 175:
                     clearOutput(1)
                 if enemydmg >= 75:
@@ -135,8 +140,8 @@ def enemyFight():
                 if healCounter > 0:
                     heal = random.randint(75, 125)
                     health += heal
-                    if health >= 700:
-                        health = 700
+                    if health >= 1000:
+                        health = 1000
                         print("You healed", heal, "health!")
                         print("You have max left!")
                         print()
@@ -147,13 +152,13 @@ def enemyFight():
                     healCounter -= 1
                     end = input("Press enter to continue...")     
                     time.sleep(0.1)
-                    clearOutput(11)           
+                    clearOutput(13)           
                 else:
                     print("You have no more heals left!")
                     print()
                     end = input("Press enter to continue...")
                     time.sleep(0.1)
-                    clearOutput(10)
+                    clearOutput(12)
                 
             elif choice == "3":
                 print("You ran away!")
@@ -162,17 +167,136 @@ def enemyFight():
                 defense -= 15
                 break
             else:  
-                clearOutput(7)
+                clearOutput(9)
 
     if health == 0:
         print("You died!")
         print()
         print("Game over!")
+        print()
+        end = input("Press enter to exit...")
         quit()
     elif enemyHealth == 0:
         print("You won!")
     print()
     end = input("Press enter to exit...")
+    clearOutput(14)
+    if enemyHealth == 0:
+        clearOutput(3)
+        if criticalHit == 1:
+            clearOutput(1)
+
+#Boss fight function
+def bossFight():
+
+    bossHealth = random.randint(1500, 2000)
+    criticalHit = 0
+    global health
+    global healCounter
+    global attack
+    global defense
+
+    print("------------------------------------------------------------")
+    print()
+    while health > 0:
+        if health >= 0:
+            print(f"Attack: {attack} | Defense: {defense} | Health: {health} | Boss Health: {bossHealth}")
+            print()
+            print("What will you do?")
+            print("1. Attack")
+            print(f"2. Heal ({healCounter} left)")
+            print()
+            choice = input("Enter choice: ")
+            print()
+            time.sleep(0.5)
+
+            if choice == "1": 
+                dmg = random.randint(attack, attack+200)
+                bossHealth -= dmg
+                if bossHealth <= 0:
+                    bossHealth = 0
+                    if dmg >= 175:
+                        print("Critical hit!")
+                        criticalHit += 1
+                    print("You dealt", dmg, "damage to the boss!")
+                    print("The boss has", bossHealth, "health left!")
+                    print()
+                    break
+                else:
+                    if dmg >= 175:
+                        print("Critical hit!")
+                    print("You dealt", dmg, "damage to the boss!")
+                    print("The boss has", bossHealth, "health left!")
+                    print()
+                time.sleep(0.5)
+
+                bossdmg = random.randint(defense+20, 150)
+                bossdmg -= defense
+                health -= bossdmg
+                if bossHealth >= 0:
+                    if health <= 0:
+                        health = 0
+                        print("The boss dealt", bossdmg, "damage to you!")
+                        if bossdmg >= 75:
+                            print("The attack was super effective!")
+                        print("You have", health, "health left!")
+                        print()
+                        break
+                    else:
+                        print("The boss dealt", bossdmg, "damage to you!")
+                        if bossdmg >= 75:
+                            print("The attack was super effective!")
+                        print("You have", health, "health left!")
+                        print()
+                time.sleep(0.5)
+                end = input("Press enter to continue...")
+                time.sleep(0.1)
+                clearOutput(15)
+                if dmg >= 175:
+                    clearOutput(1)
+                if bossdmg >= 75:
+                    clearOutput(1)
+            
+            elif choice == "2":
+                if healCounter > 0:
+                    heal = random.randint(75, 125)
+                    health += heal
+                    if health >= 1000:
+                        health = 1000
+                        print("You healed", heal, "health!")
+                        print("You have max left!")
+                        print()
+                    else:
+                        print("You healed", heal, "health!")
+                        print("You have", health, "health left!")
+                        print()
+                    healCounter -= 1
+                    end = input("Press enter to continue...")     
+                    time.sleep(0.1)
+                    clearOutput(12)           
+                else:
+                    print("You have no more heals left!")
+                    print()
+                    end = input("Press enter to continue...")
+                    time.sleep(0.1)
+                    clearOutput(11)
+            else:  
+                clearOutput(8)
+
+    if health == 0:
+        print("You died!")
+        print()
+        print("Game over!")
+        print()
+        end = input("Press enter to exit...")
+        quit()
+    elif bossHealth == 0:
+        print("You won!")
+    print()
+    end = input("Press enter to exit...")
+    clearOutput(16)
+    if criticalHit == 1:
+        clearOutput(1)
 
 # Main game
 welcomeScreen()
