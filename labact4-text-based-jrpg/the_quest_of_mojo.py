@@ -1,8 +1,6 @@
-from logging import critical
 import random
 import time
 import os
-from turtle import clear
 
 # Variables
 kingdomNames = ["Nexus", "Arkdemn"]
