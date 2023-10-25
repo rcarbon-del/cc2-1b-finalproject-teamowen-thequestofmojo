@@ -3,16 +3,16 @@ import time
 
 bossHealth = random.randint(1500, 2000)
 health = 700
-initialWeaponDamage = 50
+attack = 50
 healCounter = 3
 
-def clearOutput(num_lines: int):
+def clearOutput(numberOfLines: int):
     cursorUpOne = '\x1b[1A'
     erase = '\x1b[2K'
-    for _ in range(num_lines):
+    for _ in range(numberOfLines):
         print(cursorUpOne + erase, end='')
 
-while bossHealth or health == True:
+while health > 0:
     if health >= 0:
         print("What will you do?")
         print("1. Attack")
@@ -24,7 +24,7 @@ while bossHealth or health == True:
         time.sleep(0.5)
 
         if choice == "1": 
-            dmg = random.randint(initialWeaponDamage, initialWeaponDamage+200)
+            dmg = random.randint(attack, attack+200)
             bossHealth -= dmg
             if bossHealth <= 0:
                 bossHealth = 0
