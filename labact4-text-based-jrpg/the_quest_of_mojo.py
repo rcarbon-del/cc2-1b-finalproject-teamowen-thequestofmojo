@@ -1,23 +1,33 @@
-from calendar import c
 import random
 import time
 
-# Variables and functions
-# Clear output
+# Variables
+kingdomNames = ["Nexus", "Arkdemn"]
+knights = ["Ether", "Sekai"]
+demons = ["Valentina", "Riyo"]
+demonPrince = "Carnivale"
+magicalStone = "Citrine"
+health = random.randint(800, 1000)
+attack = random.randint(1, 25)
+defense = random.randint(1, 25)
+healCounter = 3
+
+# Functions
+# Clear output function
 def clearOutput(numberOfLines: int):
     cursorUpOne = '\x1b[1A'
     erase = '\x1b[2K'
     for _ in range(numberOfLines):
         print(cursorUpOne + erase, end='')
 
-#Welcome screen
+#Welcome screen function
 def welcomeScreen():
     print()
     print("Welcome to the Quest of Mojo!")
     time.sleep(2)
     print()
-    print("""The Quest of Mojo is a role-playing game (RPG) that takes place 
-in a post-apocalyptic Nexus, beginning in the year 1751.""")
+    print(f"""The Quest of Mojo is a role-playing game (RPG) that takes place 
+in a post-apocalyptic {kingdomNames[0]}, beginning in the year 1751.""")
     time.sleep(2)
     print()
     print("1. Start")
@@ -51,6 +61,118 @@ taught by Sir Jerry Junior Pacalso.""")
         time.sleep(1)
         clearOutput(11)
         welcomeScreen()
+
+#Enemy fight function
+def enemyFight():
+    enemyHealth = random.randint(1500, 2000)
+    global health
+    global healCounter
+    global attack
+    global defense
+
+    def clearOutput(numberOfLines: int):
+        cursorUpOne = '\x1b[1A'
+        erase = '\x1b[2K'
+        for _ in range(numberOfLines):
+            print(cursorUpOne + erase, end='')
+
+    while health > 0:
+        if health >= 0:
+            print("What will you do?")
+            print("1. Attack")
+            print(f"2. Heal ({healCounter} left)")
+            print("3. Run")
+            print()
+            choice = input("Enter choice: ")
+            print()
+            time.sleep(0.5)
+
+            if choice == "1": 
+                dmg = random.randint(attack, attack+200)
+                enemyHealth -= dmg
+                if enemyHealth <= 0:
+                    enemyHealth = 0
+                    if dmg >= 175:
+                        print("Critical hit!")
+                    print("You dealt", dmg, "damage to the enemy!")
+                    print("The enemy has", enemyHealth, "health left!")
+                    print()
+                    break
+                else:
+                    if dmg >= 175:
+                        print("Critical hit!")
+                    print("You dealt", dmg, "damage to the enemy!")
+                    print("The enemy has", enemyHealth, "health left!")
+                    print()
+                time.sleep(0.5)
+
+                enemydmg = random.randint(10, 100)
+                enemydmg -= defense
+                health -= enemydmg
+                if enemyHealth >= 0:
+                    if health <= 0:
+                        health = 0
+                        print("The enemy dealt", enemydmg, "damage to you!")
+                        print("You have", health, "health left!")
+                        print()
+                        break
+                    else:
+                        print("The enemy dealt", enemydmg, "damage to you!")
+                        if enemydmg >= 75:
+                            print("The attack was super effective!")
+                        print("You have", health, "health left!")
+                        print()
+                time.sleep(0.5)
+                end = input("Press enter to continue...")
+                time.sleep(0.1)
+                clearOutput(14)
+                if dmg >= 175:
+                    clearOutput(1)
+                if enemydmg >= 75:
+                    clearOutput(1)
+            
+            elif choice == "2":
+                if healCounter > 0:
+                    heal = random.randint(75, 125)
+                    health += heal
+                    if health >= 700:
+                        health = 700
+                        print("You healed", heal, "health!")
+                        print("You have max left!")
+                        print()
+                    else:
+                        print("You healed", heal, "health!")
+                        print("You have", health, "health left!")
+                        print()
+                    healCounter -= 1
+                    end = input("Press enter to continue...")     
+                    time.sleep(0.1)
+                    clearOutput(11)           
+                else:
+                    print("You have no more heals left!")
+                    print()
+                    end = input("Press enter to continue...")
+                    time.sleep(0.1)
+                    clearOutput(10)
+                
+            elif choice == "3":
+                print("You ran away!")
+                health -= 500
+                attack -= 15
+                defense -= 15
+                break
+            else:  
+                clearOutput(7)
+
+    if health == 0:
+        print("You died!")
+        print()
+        print("Game over!")
+        quit()
+    elif enemyHealth == 0:
+        print("You won!")
+    print()
+    end = input("Press enter to exit...")
 
 # Main game
 welcomeScreen()
@@ -96,16 +218,16 @@ print()
 print("The book says,")
 time.sleep(1.5)
 print()
-print(""""Nexus: The World of Peace"
-    The blessed world brought by the gods. Ever since the start 
-of time, the world was at peace. The gods have given the people 
-of Nexus the power of magic. The people of Nexus used magic to 
-help the world. The world was at peace for a thousand years. But, 
-the gods have left the world of Nexus. However, the gods left a 
-gift for the people of Nexus. The gift was the magical stone, 
-Citrine. Citrine is the most powerful and dangerous 
-object in the world. It gave the people the ability to use 
-magic without the help of gods.""")
+print(f"""" {kingdomNames[0]}: The Kingdom of Peace"
+        The blessed kingdom brought by the gods. Even when there is  
+    war, the kingdom was at peace. The gods have given the people 
+    of {kingdomNames[0]} the power of magic. The people of {kingdomNames[0]} used magic to 
+    help the world. The world was at peace for a thousand years. But, 
+    the gods have left the world of {kingdomNames[0]}. However, the gods left a 
+    gift for the people of {kingdomNames[0]}. The gift was the magical stone, 
+    {magicalStone}. {magicalStone} is the most powerful and dangerous 
+    object in the world. It gave the people the ability to use 
+    magic without the help of gods.""")
 time.sleep(10)
 print()
 end = input("Press enter to flip to the next page...")
@@ -114,15 +236,15 @@ clearOutput(18)
 print("You flip the page, it says,")
 time.sleep(1.5)
 print()
-print(""""The Fall of Nexus"
-The world of Nexus was at peace for a thousand years. Until
-the day came when the gods left the world of Nexus. The people
-of Nexus were sad and angry. They wanted the gods to come back.
-The people of Nexus started to fight each other for the magical 
-stone, Citrine. The people of Nexus started to kill each other. 
-The world of Nexus was at war. However, the magical stone was kept
-safe by the people of Arkdemn. The people of Arkdemn were the
-protectors of the magical stone.""")
+print(f"""" {kingdomNames[0]} against other kingdoms"
+        The world of {kingdomNames[0]} was at peace for a thousand years. Until
+    the day came when the gods left the kingdom of {kingdomNames[0]}. The people
+    of other kingdoms became greedy. They wanted the to get the stone.
+    Other kingdoms started to wage war with {kingdomNames[0]} for the magical 
+    stone, {magicalStone}. The people of {kingdomNames[0]} started to kill each other. 
+    For the past 100 years, the magical stone was able to be kept
+    safe by the people of {kingdomNames[0]}. The people of {kingdomNames[0]} were the
+    protectors of the magical stone.""")
 time.sleep(10)
 print()
 end = input("Press enter to close the book...")
@@ -142,14 +264,14 @@ clearOutput(3)
 print("You reply,")
 time.sleep(1.5)
 print()
-print('"Yes, I have. So, what do I do now?."')
+print('"Yes, I have. So, what do I do now?"')
 time.sleep(5)
 clearOutput(3)
 
 print("The voice replies,")
 time.sleep(1.5)
 print()
-print('"You must go to the capital of Arkdemn and defend the magical stone, Citrine."')
+print(f'"You must go to the capital of {kingdomNames[0]} and defend the magical stone, {magicalStone}."')
 time.sleep(5)
 clearOutput(3)
 
@@ -157,7 +279,22 @@ print("You go outside and see a sword and a shield with a crest.")
 time.sleep(2)
 print()
 print("You take the sword and shield.")
+attack += 50
+defense += 50
 time.sleep(5)
 clearOutput(3)
 
-print("As you wander, you find out that you were already in the capital of Arkdemn.")
+print(f"""  As you wander, you find out that you were already in the capital of {kingdomNames[0]}.
+You also find out the news about Carnivale, the demon prince of power.""")
+time.sleep(2)
+print(f"""'Carnivale is the demon prince of powers. He was extremely injured and lost most of his 
+powers during the previous fights of Nexus against the demons of Arkdenm. Carnivale believes he can 
+save his life and bring back his powers with the help of the magical stone. Out of loyalty and 
+gratitude for keeping them when they were abandoned since childhood, his two trustworthy demons, 
+Valentina and Riyo, are able to risk everything just to make him back again.'""")
+time.sleep(10)
+print()
+end = input("Press enter to keep walking...")
+clearOutput(14)
+
+print("You continue walking. You stumble upon two knights, Ether and Sekai, and they seem to recognize you.")

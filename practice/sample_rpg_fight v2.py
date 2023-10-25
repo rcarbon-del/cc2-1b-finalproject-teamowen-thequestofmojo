@@ -4,6 +4,7 @@ import time
 bossHealth = random.randint(1500, 2000)
 health = 700
 attack = 50
+defense = 10
 healCounter = 3
 
 def clearOutput(numberOfLines: int):
@@ -43,6 +44,7 @@ while health > 0:
             time.sleep(0.5)
 
             bossdmg = random.randint(10, 100)
+            bossdmg -= defense
             health -= bossdmg
             if bossHealth >= 0:
                 if health <= 0:
