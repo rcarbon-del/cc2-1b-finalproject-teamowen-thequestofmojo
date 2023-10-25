@@ -1,6 +1,8 @@
+from calendar import c
 import random
 import time
 
+# Variables and functions
 # Clear output
 def clearOutput(numberOfLines: int):
     cursorUpOne = '\x1b[1A'
@@ -50,6 +52,7 @@ taught by Sir Jerry Junior Pacalso.""")
         clearOutput(11)
         welcomeScreen()
 
+# Main game
 welcomeScreen()
 print("The Quest of Mojo")
 print()
@@ -65,11 +68,13 @@ print("You wake up in a small room.")
 time.sleep(5)
 clearOutput(1)
 
-print("Suddenly, You hear someone speaking to you.")
+print("Suddenly, you hear someone speaking to you.")
 time.sleep(1.5)
 print()
-user = input('"Young one, what is your name?" ')
-clearOutput(3)
+print('"Young one, what is your name?" ')
+print()
+user = input("> ")
+clearOutput(5)
 
 print("You reply, " + user + ".")
 time.sleep(5)
@@ -78,11 +83,14 @@ clearOutput(1)
 print("The voice replies,")
 time.sleep(1.5)
 print()
-print('"Ah, ' + user + ' , I see you that are awake."')
+print('"Ah, ' + user + ', I see you that are awake."')
 time.sleep(5)
 clearOutput(3)
 
 print("You look around the room and see a book.")
+time.sleep(2)
+print()
+print("The book was written in Japanese. However, you are able to read it.")
 time.sleep(2)
 print()
 print("The book says,")
@@ -98,13 +106,58 @@ gift for the people of Nexus. The gift was the magical stone,
 Citrine. Citrine is the most powerful and dangerous 
 object in the world. It gave the people the ability to use 
 magic without the help of gods.""")
-time.sleep(1)
+time.sleep(10)
 print()
 end = input("Press enter to flip to the next page...")
-clearOutput(16)
+clearOutput(18)
 
 print("You flip the page, it says,")
 time.sleep(1.5)
 print()
 print(""""The Fall of Nexus"
-The world of Nexus was at peace for a thousand years. Until""")
+The world of Nexus was at peace for a thousand years. Until
+the day came when the gods left the world of Nexus. The people
+of Nexus were sad and angry. They wanted the gods to come back.
+The people of Nexus started to fight each other for the magical 
+stone, Citrine. The people of Nexus started to kill each other. 
+The world of Nexus was at war. However, the magical stone was kept
+safe by the people of Arkdemn. The people of Arkdemn were the
+protectors of the magical stone.""")
+time.sleep(10)
+print()
+end = input("Press enter to close the book...")
+clearOutput(13)
+
+print("You closed the book and put it back on the table.")
+time.sleep(5)
+clearOutput(1)
+
+print("The voice says,")
+time.sleep(1.5)
+print()
+print('"I see that you have read the book."')
+time.sleep(5)
+clearOutput(3)
+
+print("You reply,")
+time.sleep(1.5)
+print()
+print('"Yes, I have. So, what do I do now?."')
+time.sleep(5)
+clearOutput(3)
+
+print("The voice replies,")
+time.sleep(1.5)
+print()
+print('"You must go to the capital of Arkdemn and defend the magical stone, Citrine."')
+time.sleep(5)
+clearOutput(3)
+
+print("You go outside and see a sword and a shield with a crest.")
+time.sleep(2)
+print()
+print("You take the sword and shield.")
+time.sleep(5)
+clearOutput(3)
+
+print("As you wander, you find out that you were already in the capital of Arkdemn.")
