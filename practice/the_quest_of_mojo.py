@@ -1,3 +1,4 @@
+from math import e
 import random
 import time
 from turtle import clear
@@ -12,7 +13,6 @@ def clearOutput(numberOfLines: int):
 #Welcome screen
 def welcomeScreen():
     print()
-    print()
     print("Welcome to the Quest of Mojo!")
     time.sleep(2)
     print()
@@ -21,23 +21,41 @@ def welcomeScreen():
     time.sleep(2)
     print()
     print("1. Start")
-    print("2. Quit")
+    print("2. Credits")
+    print("3. Quit")
     print()
-    titleChoice = input("Enter choice: ")
-    if titleChoice == "2":
+    titleChoice = input("> ")
+    if titleChoice == "1":
+        clearOutput(11)
+    elif titleChoice == "2":
+        clearOutput(11)
+        print("""The Quest of Mojo was created by:
+        
+          Bulatao, Chris Owyn
+          Carbonel, Radge Daryll
+          Carbonell, Jennylyn
+          Cero, Wyatt
+              
+        For completion of the requirements for the course,
+        Introduction to Computer Programming | CITCS 1B,
+        taught by Sir Jerry Junior Pacalso.""")
+        end = input("Press enter to continue...")
+        clearOutput(11)
+        welcomeScreen()
+
+    elif titleChoice == "3":
         quit()
-    elif titleChoice == "1":
-        clearOutput(12)
     else:
         print("Invalid choice.")
         time.sleep(1)
-        clearOutput(12)
+        clearOutput(11)
         welcomeScreen()
 
 welcomeScreen()
 print("The Quest of Mojo")
 print()
 time.sleep(1)
+
 #Character creation
 print("You are a young adventurer who lives alone.")
 time.sleep(5)
@@ -49,7 +67,7 @@ time.sleep(5)
 clearOutput(1)
 time.sleep(3)
 
-print("You suddenly hear someone speaking to you.")
+print("Suddenly, You hear someone speaking to you.")
 time.sleep(1.5)
 print()
 user = input('"Young one, what is your name?" ')
