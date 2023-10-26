@@ -310,15 +310,11 @@ def randomEnemy():
         enemy = random.randint(1, 3)
         if enemy == 1:
             print("You encountered a demon!")
-            print()
-            
         elif enemy == 2:
             print("You encountered a human trafficker!")
-            print()
-
         elif enemy == 3:
             print("You encountered a monster!")
-            print()
+        print()
         enemyFight()
         flush()
         randomEnemyCounter = random.randint(1, 10)
