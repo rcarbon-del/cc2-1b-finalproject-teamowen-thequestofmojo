@@ -11,7 +11,8 @@ magicalStone = "Citrine"
 health = random.randint(800, 1000)
 attack = random.randint(1, 25)
 defense = random.randint(1, 25)
-healCounter = 10
+healCounter = 5
+randomEnemyCounter = 0
 
 # Functions
 # Clear output function
@@ -107,7 +108,7 @@ def enemyFight():
                     print()
                 time.sleep(0.5)
 
-                enemydmg = random.randint(defense+20, 100)
+                enemydmg = random.randint(100, 150)
                 enemydmg -= defense
                 health -= enemydmg
                 if enemyHealth >= 0:
@@ -129,9 +130,9 @@ def enemyFight():
                 end = input("Press enter to continue...")
                 time.sleep(0.1)
                 clearOutput(16)
-                if dmg >= 175:
+                if dmg >= 150:
                     clearOutput(1)
-                if enemydmg >= 75:
+                if enemydmg >= 100:
                     clearOutput(1)
             
             elif choice == "2":
@@ -176,13 +177,18 @@ def enemyFight():
         quit()
     elif enemyHealth == 0:
         print("You won!")
+        additionalAttack = random.randint(1, 15)
+        attack += additionalAttack
+        additionalDefense = random.randint(1, 10)
+        defense += additionalDefense
+        additionalHealth = random.randint(100, 200)
+        health += additionalHealth
+        additionalHealCounter = random.randint(1, 3)
+        healCounter += additionalHealCounter
+        print()
+        print(f"You have gained {additionalAttack} attack, {additionalDefense} defense, {additionalHealth} health, and {additionalHealCounter} heal(s)!")
     print()
     end = input("Press enter to exit...")
-    clearOutput(14)
-    if enemyHealth == 0:
-        clearOutput(3)
-        if criticalHit == 1:
-            clearOutput(1)
 
 #Boss fight function
 def bossFight():
@@ -209,7 +215,7 @@ def bossFight():
             time.sleep(0.5)
 
             if choice == "1": 
-                dmg = random.randint(attack, attack+200)
+                dmg = random.randint(attack+20, attack+200)
                 bossHealth -= dmg
                 if bossHealth <= 0:
                     bossHealth = 0
@@ -228,21 +234,21 @@ def bossFight():
                     print()
                 time.sleep(0.5)
 
-                bossdmg = random.randint(defense+20, 150)
+                bossdmg = random.randint(150, 250)
                 bossdmg -= defense
                 health -= bossdmg
                 if bossHealth >= 0:
                     if health <= 0:
                         health = 0
                         print("The boss dealt", bossdmg, "damage to you!")
-                        if bossdmg >= 75:
+                        if bossdmg >= 150:
                             print("The attack was super effective!")
                         print("You have", health, "health left!")
                         print()
                         break
                     else:
                         print("The boss dealt", bossdmg, "damage to you!")
-                        if bossdmg >= 75:
+                        if bossdmg >= 150:
                             print("The attack was super effective!")
                         print("You have", health, "health left!")
                         print()
@@ -252,7 +258,7 @@ def bossFight():
                 clearOutput(15)
                 if dmg >= 175:
                     clearOutput(1)
-                if bossdmg >= 75:
+                if bossdmg >= 150:
                     clearOutput(1)
             
             elif choice == "2":
@@ -292,9 +298,40 @@ def bossFight():
         print("You won!")
     print()
     end = input("Press enter to exit...")
-    clearOutput(16)
-    if criticalHit == 1:
-        clearOutput(1)
+
+#Clear all output function
+flush = lambda: os.system('cls' if os.name == 'nt' else 'clear')
+
+#Random enemy function
+def randomEnemy():
+    global randomEnemyCounter
+    randomEnemyCounter += 30
+    if randomEnemyCounter >= 28:
+        enemy = random.randint(1, 3)
+        if enemy == 1:
+            print("You encountered a demon!")
+            print()
+            enemyFight()
+            flush()
+            print("The Quest of Mojo")
+            print()
+
+        elif enemy == 2:
+            print("You encountered a human trafficker!")
+            print()
+            enemyFight()
+            flush()
+            print("The Quest of Mojo")
+            print()
+
+        elif enemy == 3:
+            print("You encountered a monster!")
+            print()
+            enemyFight()
+            flush()
+            print("The Quest of Mojo")
+            print()
+        randomEnemyCounter = random.randint(1, 10)
 
 # Main game
 welcomeScreen()
@@ -327,7 +364,7 @@ clearOutput(1)
 print("The voice replies,")
 time.sleep(1.5)
 print()
-print('"Ah, ' + user + ', I see you that are awake."')
+print('"Ah! ' + user + ', I see you that are awake."')
 time.sleep(5)
 clearOutput(3)
 
@@ -340,7 +377,8 @@ print()
 print("The book says,")
 time.sleep(1.5)
 print()
-print(f"""" {kingdomNames[0]}: The Kingdom of Peace"
+print(f""""{kingdomNames[0]}: The Kingdom of Peace"
+      
         The blessed kingdom brought by the gods. Even when there is  
     war, the kingdom was at peace. The gods have given the people 
     of {kingdomNames[0]} the power of magic. The people of {kingdomNames[0]} used magic to 
@@ -353,13 +391,14 @@ print(f"""" {kingdomNames[0]}: The Kingdom of Peace"
 time.sleep(10)
 print()
 end = input("Press enter to flip to the next page...")
-clearOutput(18)
+clearOutput(19)
 
 print("You flip the page, it says,")
 time.sleep(1.5)
 print()
-print(f"""" {kingdomNames[0]} against other kingdoms"
-        The world of {kingdomNames[0]} was at peace for a thousand years. Until
+print(f""""{kingdomNames[0]} against other kingdoms"
+      
+        The kingdom of {kingdomNames[0]} was at peace for a thousand years. Until
     the day came when the gods left the kingdom of {kingdomNames[0]}. The people
     of other kingdoms became greedy. They wanted the to get the stone.
     Other kingdoms started to wage war with {kingdomNames[0]} for the magical 
@@ -370,7 +409,7 @@ print(f"""" {kingdomNames[0]} against other kingdoms"
 time.sleep(10)
 print()
 end = input("Press enter to close the book...")
-clearOutput(13)
+clearOutput(14)
 
 print("You closed the book and put it back on the table.")
 time.sleep(5)
@@ -405,18 +444,66 @@ attack += 50
 defense += 50
 time.sleep(5)
 clearOutput(3)
+randomEnemy()
 
-print(f"""  As you wander, you find out that you were already in the capital of {kingdomNames[0]}.
+print(f"""  As you wander, you find out that you were already in the capital of {kingdomNames[0]}. 
 You also find out the news about Carnivale, the demon prince of power.""")
 time.sleep(2)
-print(f"""'Carnivale is the demon prince of powers. He was extremely injured and lost most of his 
-powers during the previous fights of Nexus against the demons of Arkdenm. Carnivale believes he can 
-save his life and bring back his powers with the help of the magical stone. Out of loyalty and 
-gratitude for keeping them when they were abandoned since childhood, his two trustworthy demons, 
-Valentina and Riyo, are able to risk everything just to make him back again.'""")
+print()
+print(f"""  Carnivale is the demon prince of powers. He was extremely injured and lost 
+most of his powers during the previous fights of Nexus against the demons of Arkdenm. 
+Carnivale believes he can save his life and bring back his powers with the help of the 
+magical stone. Out of loyalty and gratitude for keeping them when they were abandoned 
+since childhood, his two trustworthy demons, Valentina and Riyo, are able to risk 
+everything just to make him back again.""")
 time.sleep(10)
 print()
 end = input("Press enter to keep walking...")
-clearOutput(14)
+clearOutput(11)
+randomEnemy()
 
-print("You continue walking. You stumble upon two knights, Ether and Sekai, and they seem to recognize you.")
+print(f"You continue walking. You stumble upon two knights, Ether and Sekai, and they seem to recognize you.")
+time.sleep(2)
+print()
+print("Ether says,")
+time.sleep(1.5)
+print()
+print(f'"Hey, {user}, where are you going?"')
+time.sleep(5)
+clearOutput(5)
+
+print("You reply,")
+time.sleep(1.5)
+print()
+print('"Who are you?"')
+time.sleep(5)
+clearOutput(3)
+
+print("Sekai replies,")
+time.sleep(1.5)
+print()
+print('"Ha ha ha, did you forget that we all are knights of the kingdom of Nexus?"')
+time.sleep(5)
+clearOutput(3)
+
+print("You reply awkwardly,")
+time.sleep(1.5)
+print()
+print('"Oh, I forgot. Sorry about that."')
+time.sleep(5)
+clearOutput(3)
+
+print("Ether says,")
+time.sleep(1.5)
+print()
+print('"We need to go now. Valentina and Riyo are going to attack the capital of Nexus."')
+time.sleep(5)
+clearOutput(3)
+randomEnemy()
+
+
+print("You and the two knights go to the headquaters of the imperial knights.")
+time.sleep(2)
+print()
+print("Ether says,")
+
