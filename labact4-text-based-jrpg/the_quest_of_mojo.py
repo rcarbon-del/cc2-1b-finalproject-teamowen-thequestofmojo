@@ -311,27 +311,19 @@ def randomEnemy():
         if enemy == 1:
             print("You encountered a demon!")
             print()
-            enemyFight()
-            flush()
-            print("The Quest of Mojo")
-            print()
-
+            
         elif enemy == 2:
             print("You encountered a human trafficker!")
-            print()
-            enemyFight()
-            flush()
-            print("The Quest of Mojo")
             print()
 
         elif enemy == 3:
             print("You encountered a monster!")
             print()
-            enemyFight()
-            flush()
-            print("The Quest of Mojo")
-            print()
+        enemyFight()
+        flush()
         randomEnemyCounter = random.randint(1, 10)
+        print("The Quest of Mojo")
+        print()
 
 # Main game
 welcomeScreen()
