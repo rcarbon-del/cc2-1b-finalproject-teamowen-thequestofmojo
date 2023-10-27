@@ -1,6 +1,7 @@
 import random
 import time
 import os
+import sys
 
 # Variables
 kingdomNames = ["Nexus", "Arkdemn"]
@@ -11,10 +12,13 @@ magicalStone = "Citrine"
 health = random.randint(800, 1000)
 attack = random.randint(1, 25)
 defense = random.randint(1, 25)
-healCounter = 5
+healCounter = random.randint(3, 6)
 randomEnemyCounter = 0
 
 # Functions
+#Clear all output function
+flush = lambda: os.system('cls' if os.name == 'nt' else 'clear')
+
 # Clear output function
 def clearOutput(numberOfLines: int):
     cursorUpOne = '\x1b[1A'
@@ -63,6 +67,22 @@ taught by Sir Jerry Junior Pacalso.""")
         time.sleep(1)
         clearOutput(11)
         welcomeScreen()
+
+#Death screen function
+def deathScreen():
+    print("You died!")
+    print()
+    print("Game over!")
+    print()
+    print("1. Restart")
+    print("2. Quit")
+    print()
+    deathChoice = input("> ")
+    if deathChoice == "1":
+        flush()
+        os.execl(sys.executable, os.path.abspath(__file__), *sys.argv)
+    elif deathChoice == "2":
+        quit()
 
 #Enemy fight function
 def enemyFight():
@@ -169,12 +189,7 @@ def enemyFight():
                 clearOutput(9)
 
     if health == 0:
-        print("You died!")
-        print()
-        print("Game over!")
-        print()
-        end = input("Press enter to exit...")
-        quit()
+        deathScreen()
     elif enemyHealth == 0:
         print("You won!")
         additionalAttack = random.randint(1, 15)
@@ -191,9 +206,9 @@ def enemyFight():
     end = input("Press enter to exit...")
 
 #Boss fight function
-def bossFight():
+def bossFight(bossStrength: int):
 
-    bossHealth = random.randint(1500, 2000)
+    bossHealth = random.randint(bossStrength*750, bossStrength*1000)
     criticalHit = 0
     global health
     global healCounter
@@ -234,21 +249,21 @@ def bossFight():
                     print()
                 time.sleep(0.5)
 
-                bossdmg = random.randint(150, 250)
+                bossdmg = random.randint(bossStrength*75, bossStrength*110)
                 bossdmg -= defense
                 health -= bossdmg
                 if bossHealth >= 0:
                     if health <= 0:
                         health = 0
                         print("The boss dealt", bossdmg, "damage to you!")
-                        if bossdmg >= 150:
+                        if bossdmg >= bossStrength*80:
                             print("The attack was super effective!")
                         print("You have", health, "health left!")
                         print()
                         break
                     else:
                         print("The boss dealt", bossdmg, "damage to you!")
-                        if bossdmg >= 150:
+                        if bossdmg >= bossStrength*80:
                             print("The attack was super effective!")
                         print("You have", health, "health left!")
                         print()
@@ -258,15 +273,15 @@ def bossFight():
                 clearOutput(15)
                 if dmg >= 175:
                     clearOutput(1)
-                if bossdmg >= 150:
+                if bossdmg >= bossStrength*80:
                     clearOutput(1)
             
             elif choice == "2":
                 if healCounter > 0:
                     heal = random.randint(75, 125)
                     health += heal
-                    if health >= 1000:
-                        health = 1000
+                    if health >= 1500:
+                        health = 1500
                         print("You healed", heal, "health!")
                         print("You have max left!")
                         print()
@@ -288,19 +303,15 @@ def bossFight():
                 clearOutput(8)
 
     if health == 0:
-        print("You died!")
-        print()
-        print("Game over!")
-        print()
-        end = input("Press enter to exit...")
-        quit()
+        deathScreen()
     elif bossHealth == 0:
         print("You won!")
     print()
     end = input("Press enter to exit...")
-
-#Clear all output function
-flush = lambda: os.system('cls' if os.name == 'nt' else 'clear')
+    if bossStrength == 2:
+        flush()
+        print("The Quest of Mojo")
+        print()
 
 #Random enemy function
 def randomEnemy():
@@ -494,4 +505,26 @@ print("You and the two knights go to the headquaters of the imperial knights.")
 time.sleep(2)
 print()
 print("Ether says,")
+time.sleep(1.5)
+print()
+print('"We have to subdue Valentina and Riyo. I heard that they are on their way to the capital."')
+time.sleep(5)
+clearOutput(5)
+
+print("You and the two knights go to the forest outside the capital.")
+time.sleep(5)
+clearOutput(1)
+randomEnemy()
+randomEnemy()
+
+print("You and the two knights see Valentina and Riyo.")
+time.sleep(2)
+print()
+print("Ether says,")
+time.sleep(1.5)
+print()
+print('"ATTACK!"')
+time.sleep(5)
+bossFight(2)
+bossFight(2)
 
