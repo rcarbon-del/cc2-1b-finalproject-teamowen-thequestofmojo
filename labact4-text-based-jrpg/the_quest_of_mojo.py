@@ -516,6 +516,7 @@ time.sleep(5)
 clearOutput(1)
 randomEnemy()
 randomEnemy()
+randomEnemy()
 
 print("You and the two knights see Valentina and Riyo.")
 time.sleep(2)
