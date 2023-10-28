@@ -32,19 +32,15 @@ def welcomeScreen():
     print("Welcome to the Quest of Mojo!")
     time.sleep(2)
     print()
-    print(f"""The Quest of Mojo is a role-playing game (RPG) that takes place 
-in a post-apocalyptic {kingdomNames[0]}, beginning in the year 1751.""")
-    time.sleep(2)
-    print()
     print("1. Start")
     print("2. Credits")
     print("3. Quit")
     print()
     titleChoice = input("> ")
     if titleChoice == "1":
-        clearOutput(11)
+        clearOutput(8)
     elif titleChoice == "2":
-        clearOutput(11)
+        clearOutput(8)
         print("""The Quest of Mojo was created by:
         
     Bulatao, Chris Owyn
@@ -83,6 +79,9 @@ def deathScreen():
         os.execl(sys.executable, os.path.abspath(__file__), *sys.argv)
     elif deathChoice == "2":
         quit()
+    else:
+        clearOutput(8)
+        deathScreen()
 
 #Enemy fight function
 def enemyFight():
