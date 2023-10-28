@@ -113,7 +113,7 @@ def enemyFight():
                 enemyHealth -= dmg
                 if enemyHealth <= 0:
                     enemyHealth = 0
-                    if dmg >= 150:
+                    if dmg >= attack+90:
                         print("Critical hit!")
                         criticalHit += 1
                     print("You dealt", dmg, "damage to the enemy!")
@@ -121,28 +121,31 @@ def enemyFight():
                     print()
                     break
                 else:
-                    if dmg >= 150:
+                    if dmg >= attack+90:
                         print("Critical hit!")
                     print("You dealt", dmg, "damage to the enemy!")
                     print("The enemy has", enemyHealth, "health left!")
                     print()
                 time.sleep(0.5)
 
-                enemydmg = random.randint(100, 150)
-                enemydmg -= defense
+                enemydmg = random.randint(100, 175)
+                if defense >= 100:
+                    enemydmg -= defense-40
+                else:
+                    enemydmg -= defense
                 health -= enemydmg
                 if enemyHealth >= 0:
                     if health <= 0:
                         health = 0
                         print("The enemy dealt", enemydmg, "damage to you!")
-                        if enemydmg >= 100:
+                        if enemydmg >= 150:
                             print("The attack was super effective!")
                         print("You have", health, "health left!")
                         print()
                         break
                     else:
                         print("The enemy dealt", enemydmg, "damage to you!")
-                        if enemydmg >= 100:
+                        if enemydmg >= 150:
                             print("The attack was super effective!")
                         print("You have", health, "health left!")
                         print()
@@ -150,14 +153,14 @@ def enemyFight():
                 end = input("Press enter to continue...")
                 time.sleep(0.1)
                 clearOutput(16)
-                if dmg >= 150:
+                if dmg >= attack+90:
                     clearOutput(1)
-                if enemydmg >= 100:
+                if enemydmg >= 150:
                     clearOutput(1)
             
             elif choice == "2":
                 if healCounter > 0:
-                    heal = random.randint(75, 125)
+                    heal = random.randint(75, 100)
                     health += heal
                     if health >= 1000:
                         health = 1000
@@ -196,10 +199,13 @@ def enemyFight():
         attack += additionalAttack
         additionalDefense = random.randint(1, 10)
         defense += additionalDefense
-        additionalHealth = random.randint(100, 200)
+        additionalHealth = random.randint(50, 100)
         health += additionalHealth
-        additionalHealCounter = random.randint(1, 3)
+        additionalHealCounter = random.randint(1, 2)
         healCounter += additionalHealCounter
+        if healCounter >= 10:
+            healCounter = 10
+            additionalHealCounter = 0
         print()
         print(f"You have gained {additionalAttack} attack, {additionalDefense} defense, {additionalHealth} health, and {additionalHealCounter} heal(s)!")
     print()
@@ -234,7 +240,7 @@ def bossFight(bossStrength: int):
                 bossHealth -= dmg
                 if bossHealth <= 0:
                     bossHealth = 0
-                    if dmg >= 175:
+                    if dmg >= attack+150:
                         print("Critical hit!")
                         criticalHit += 1
                     print("You dealt", dmg, "damage to the boss!")
@@ -242,7 +248,7 @@ def bossFight(bossStrength: int):
                     print()
                     break
                 else:
-                    if dmg >= 175:
+                    if dmg >= attack+150:
                         print("Critical hit!")
                     print("You dealt", dmg, "damage to the boss!")
                     print("The boss has", bossHealth, "health left!")
@@ -250,7 +256,10 @@ def bossFight(bossStrength: int):
                 time.sleep(0.5)
 
                 bossdmg = random.randint(bossStrength*75, bossStrength*110)
-                bossdmg -= defense
+                if defense >= 150:
+                    bossdmg -= defense-50
+                else:
+                    bossdmg -= defense
                 health -= bossdmg
                 if bossHealth >= 0:
                     if health <= 0:
@@ -271,14 +280,14 @@ def bossFight(bossStrength: int):
                 end = input("Press enter to continue...")
                 time.sleep(0.1)
                 clearOutput(15)
-                if dmg >= 175:
+                if dmg >= attack+150:
                     clearOutput(1)
                 if bossdmg >= bossStrength*80:
                     clearOutput(1)
             
             elif choice == "2":
                 if healCounter > 0:
-                    heal = random.randint(75, 125)
+                    heal = random.randint(125, 200)
                     health += heal
                     if health >= 1500:
                         health = 1500
@@ -306,18 +315,33 @@ def bossFight(bossStrength: int):
         deathScreen()
     elif bossHealth == 0:
         print("You won!")
+        if bossStrength == 2:
+            additionalAttack = random.randint(10, 25)
+            attack += additionalAttack
+            additionalDefense = random.randint(5, 15)
+            defense += additionalDefense
+            additionalHealth = random.randint(100, 150)
+            health += additionalHealth
+            additionalHealCounter = random.randint(2, 4)
+            healCounter += additionalHealCounter
+            if healCounter >= 10:
+                healCounter = 10
+                additionalHealCounter = 0
+            print()
+            print(f"You have gained {additionalAttack} attack, {additionalDefense} defense, {additionalHealth} health, and {additionalHealCounter} heal(s)!")
     print()
     end = input("Press enter to exit...")
     if bossStrength == 2:
         flush()
         print("The Quest of Mojo")
         print()
+    
 
 #Random enemy function
 def randomEnemy():
     global randomEnemyCounter
-    randomEnemyCounter += 30
-    if randomEnemyCounter >= 28:
+    randomEnemyCounter += random.randint(1, 45)
+    if randomEnemyCounter >= 29:
         enemy = random.randint(1, 3)
         if enemy == 1:
             print("You encountered a demon!")
@@ -526,6 +550,59 @@ time.sleep(1.5)
 print()
 print('"ATTACK!"')
 time.sleep(5)
+print()
+print("You and the two knights attack Valentina first.")
+print()
 bossFight(2)
+print("You and the two knights attack Riyo next.")
+print()
 bossFight(2)
+print("Valentina and Riyo retreated back to Arkdemn.")
+time.sleep(5)
+clearOutput(1)
+
+print("Ether says,")
+time.sleep(1.5)
+print()
+print('"We have to go back to the capital."')
+time.sleep(5)
+clearOutput(3)
+
+print("You and the two knights go back to the capital.")
+time.sleep(5)
+clearOutput(1)
+randomEnemy()
+
+print("You and the two knights go to the headquaters of the imperial knights.")
+time.sleep(2)
+print()
+print("Ether says,")
+time.sleep(1.5)
+print()
+print('"Their comrades have taken the magical stone."')
+time.sleep(5)
+clearOutput(5)
+
+print("You and the two knights go to the kingdom of Arkdemn to retrieve the stone.")
+time.sleep(5)
+clearOutput(1)
+randomEnemy()
+randomEnemy()
+randomEnemy()
+randomEnemy()
+randomEnemy()
+randomEnemy()
+randomEnemy()
+randomEnemy()
+
+print("You and the two knights arrive at the 幻想の城, the Castle of Illusion.")
+time.sleep(2)
+print()
+print("Ether says,")
+time.sleep(1.5)
+print()
+print('''"Be careful, 幻想の城, the Castle of Illusion, is the home of the demon prince of power, Carnivale. It's interior has
+a lot of traps and illusions. The interior of the castle changes everytime we enter it."''')
+time.sleep(5)
+clearOutput(6)
 
