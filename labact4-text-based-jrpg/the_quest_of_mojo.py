@@ -339,8 +339,8 @@ def bossFight(bossStrength: int):
 #Random enemy function
 def randomEnemy():
     global randomEnemyCounter
-    randomEnemyCounter += random.randint(1, 45)
-    if randomEnemyCounter >= 29:
+    randomEnemyCounter += random.randint(1, 15)
+    if randomEnemyCounter >= 26:
         enemy = random.randint(1, 3)
         if enemy == 1:
             print("You encountered a demon!")
