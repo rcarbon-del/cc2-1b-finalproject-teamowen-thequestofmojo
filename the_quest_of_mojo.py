@@ -409,7 +409,7 @@ print(f""""{kingdomNames[0]}: The Kingdom of Peace"
     gift for the people of {kingdomNames[0]}. The gift was the magical stone, 
     {magicalStone}. {magicalStone} is the most powerful and dangerous 
     object in the world. It gave the people the ability to use 
-    magic without the help of gods.""")
+    magic without the help of gods. It can bring disaster once it is abused and explodes.""")
 time.sleep(10)
 print()
 end = input("Press enter to flip to the next page...")
