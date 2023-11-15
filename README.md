@@ -7,7 +7,7 @@ Submitted by:
 
 Bulatao, Chris Owyn A.
 
-Carbonel, Radge Dary1l A.
+Carbonel, Radge Daryll A.
 
 Carbonell, Jennylyn O.
 
