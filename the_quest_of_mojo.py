@@ -6,6 +6,7 @@ import sys
 # Imported functions
 from utils import clearOutput, flush
 from screens import welcomeScreen, deathScreen
+from mazes import maze1, maze2, maze3, maze4, maze5
 
 # Variables
 kingdomNames = ["Nexus", "Arkdemn"]
@@ -14,9 +15,9 @@ demons = ["Valentina", "Riyo"]
 demonPrince = "Carnivale"
 magicalStone = "Citrine"
 health = random.randint(800, 1000)
-attack = random.randint(1, 25)
+attack = random.randint(10, 30)
 defense = random.randint(1, 25)
-healCounter = random.randint(3, 6)
+healCounter = random.randint(5, 8)
 randomEnemyCounter = 0
 
 # Functions
@@ -135,8 +136,14 @@ def enemyFight():
         attack += additionalAttack
         additionalDefense = random.randint(1, 10)
         defense += additionalDefense
+        if defense >= 150:
+            defense = 150
+            additionalDefense = 0
         additionalHealth = random.randint(50, 100)
         health += additionalHealth
+        if health >= 1000:
+            health = 1000
+            additionalHealth = 0
         additionalHealCounter = random.randint(1, 2)
         healCounter += additionalHealCounter
         if healCounter >= 10:
@@ -267,12 +274,10 @@ def bossFight(bossStrength: int):
             print(f"You have gained {additionalAttack} attack, {additionalDefense} defense, {additionalHealth} health, and {additionalHealCounter} heal(s)!")
     print()
     end = input("Press enter to exit...")
-    if bossStrength == 2:
-        flush()
-        print("The Quest of Mojo")
-        print()
+    flush()
+    print("The Quest of Mojo")
+    print()
     
-
 #Random enemy function
 def randomEnemy():
     global randomEnemyCounter
@@ -291,6 +296,152 @@ def randomEnemy():
         randomEnemyCounter = random.randint(1, 10)
         print("The Quest of Mojo")
         print()
+
+# Maze and character movement
+def playMaze():
+    WALL = '#'
+    EMPTY = ' '
+    START = 'S'
+    EXIT = 'E'
+    PLAYER = '@'
+    BLOCK = '#' 
+
+    def displayMaze(maze):
+        for y in range(HEIGHT):
+            for x in range(WIDTH):
+                if (x, y) == (playerx, playery):
+                    print(PLAYER, end='')
+                elif (x, y) == (exitx, exity):
+                    print('X', end='')
+                elif maze[(x, y)] == WALL:
+                    print(BLOCK, end='')
+                else:
+                    print(maze[(x, y)], end='')
+            print()
+
+    def mazeRandomizer():
+        global mazeFile
+        mazeCount = random.randint(1, 5)
+        if mazeCount == 1:
+            mazeFile = maze1
+        elif mazeCount == 2:
+            mazeFile = maze2
+        elif mazeCount == 3:
+            mazeFile = maze3
+        elif mazeCount == 4:
+            mazeFile = maze4
+        elif mazeCount == 5:
+            mazeFile = maze5
+
+    mazeRandomizer()
+    maze = {}
+    lines = mazeFile
+    playerx = None
+    playery = None
+    exitx = None
+    exity = None
+    y = 0
+    play = True
+    for line in lines:
+        WIDTH = len(line.rstrip())
+        for x, character in enumerate(line.rstrip()):
+            assert character in (WALL, EMPTY, START, EXIT), 'Invalid character at column {}, line {}'.format(x + 1, y + 1)
+            if character in (WALL, EMPTY):
+                maze[(x, y)] = character
+            elif character == START:
+                playerx, playery = x, y
+                maze[(x, y)] = EMPTY
+            elif character == EXIT:
+                exitx, exity = x, y
+                maze[(x, y)] = EMPTY
+        y += 1
+    HEIGHT = y
+
+    assert playerx != None and playery != None, 'No start in maze file.'
+    assert exitx != None and exity != None, 'No exit in maze file.'
+
+    while play == True: 
+        print("The Quest of Mojo")
+        print()
+        displayMaze(maze)
+        print()
+        print("Get to the X to get to Carnivale's Throne.")
+        print()
+        while True:
+            print('                  W')
+            print('Enter direction: ASD')
+            move = input('> ').upper()
+
+            if move not in ['W', 'A', 'S', 'D']:
+                print('Invalid direction. Enter one of W, A, S, or D.')
+                clearOutput(4)
+                continue
+
+            if move == 'W' and maze[(playerx, playery - 1)] == EMPTY:
+                break
+            elif move == 'S' and maze[(playerx, playery + 1)] == EMPTY:
+                break
+            elif move == 'A' and maze[(playerx - 1, playery)] == EMPTY:
+                break
+            elif move == 'D' and maze[(playerx + 1, playery)] == EMPTY:
+                break
+
+            print('You cannot move in that direction.')
+            clearOutput(4)
+        if move == 'W':
+            while True:
+                playery -= 1
+                if (playerx, playery) == (exitx, exity):
+                    break
+                if maze[(playerx, playery - 1)] == WALL:
+                    break  
+                if (maze[(playerx - 1, playery)] == EMPTY
+                    or maze[(playerx + 1, playery)] == EMPTY):
+                    break
+            randomEnemy()  
+            flush()
+        elif move == 'S':
+            while True:
+                playery += 1
+                if (playerx, playery) == (exitx, exity):
+                    break
+                if maze[(playerx, playery + 1)] == WALL:
+                    break  
+                if (maze[(playerx - 1, playery)] == EMPTY
+                    or maze[(playerx + 1, playery)] == EMPTY):
+                    break  
+            randomEnemy()
+            flush()
+        elif move == 'A':
+            while True:
+                playerx -= 1
+                if (playerx, playery) == (exitx, exity):
+                    break
+                if maze[(playerx - 1, playery)] == WALL:
+                    break 
+                if (maze[(playerx, playery - 1)] == EMPTY
+                    or maze[(playerx, playery + 1)] == EMPTY):
+                    break 
+            randomEnemy()
+            flush()
+        elif move == 'D':
+            while True:
+                playerx += 1
+                if (playerx, playery) == (exitx, exity):
+                    break
+                if maze[(playerx + 1, playery)] == WALL:
+                    break 
+                if (maze[(playerx, playery - 1)] == EMPTY
+                    or maze[(playerx, playery + 1)] == EMPTY):
+                    break
+            randomEnemy()
+            flush()
+
+        if (playerx, playery) == (exitx, exity):
+            flush()
+            print("The Quest of Mojo")
+            print()
+            play = False
 
 # Main game
 welcomeScreen()
@@ -313,10 +464,10 @@ time.sleep(1.5)
 print()
 print('"Young one, what is your name?" ')
 print()
-user = input("> ")
+user = input("> ").capitalize()
 while not user:
     clearOutput(1)
-    user = input("> ")
+    user = input("> ").capitalize()
 clearOutput(5)
 
 print("You reply, " + user + ".")
@@ -325,7 +476,6 @@ clearOutput(1)
 
 print("The voice replies,")
 time.sleep(1.5)
-
 print()
 print('"Ah! ' + user + ', I see you that are awake."')
 time.sleep(3)
@@ -409,15 +559,15 @@ time.sleep(3)
 clearOutput(3)
 randomEnemy()
 
-print(f"""  As you wander, you find out that you were already in the capital of {kingdomNames[0]}. 
-You also find out the news about Carnivale, the demon prince of power.""")
+print(f"""As you wander, you find out that you were already in the capital of {kingdomNames[0]}. 
+You also find out the news about {demonPrince}, the demon prince of power.""")
 time.sleep(2)
 print()
-print(f"""  Carnivale is the demon prince of powers. He was extremely injured and lost 
-most of his powers during the previous fights of Nexus against the demons of Arkdenm. 
-Carnivale believes he can save his life and bring back his powers with the help of the 
+print(f"""  {demonPrince} is the demon prince of powers. He was extremely injured and lost 
+most of his powers during the previous fights of {kingdomNames[0]} against the demons of Arkdenm. 
+{demonPrince} believes he can save his life and bring back his powers with the help of the 
 magical stone. Out of loyalty and gratitude for keeping them when they were abandoned 
-since childhood, his two trustworthy demons, {demons[0]} and Riyo, are able to risk 
+since childhood, his two trustworthy demons, {demons[0]} and {demons[1]}, are able to risk 
 everything just to make him back again.""")
 time.sleep(5)
 print()
@@ -425,13 +575,13 @@ end = input("Press enter to keep walking...")
 clearOutput(11)
 randomEnemy()
 
-print(f"You continue walking. You stumble upon two knights, {knights[0]} and Sekai, and they seem to recognize you.")
+print(f"You continue walking. You stumble upon two knights, {knights[0]} and {knights[1]}, and they seem to recognize you.")
 time.sleep(2)
 print()
 print(f"{knights[0]} says,")
 time.sleep(1.5)
 print()
-print(f'"Hey, {user}, where are you going?"')
+print(f'"Hey {user}, where are you going?"')
 time.sleep(3)
 clearOutput(5)
 
@@ -442,10 +592,10 @@ print('"Who are you?"')
 time.sleep(3)
 clearOutput(3)
 
-print(f"Sekai replies,")
+print(f"{knights[1]} replies,")
 time.sleep(1.5)
 print()
-print(f'"Ha ha ha, did you forget that we all are knights of the kingdom of Nexus?"')
+print(f'"Ha ha ha, did you forget that we all are knights of the kingdom of {kingdomNames[0]}?"')
 time.sleep(3)
 clearOutput(3)
 
@@ -459,19 +609,19 @@ clearOutput(3)
 print(f"{knights[0]} says,")
 time.sleep(1.5)
 print()
-print(f'"We need to go now. {demons[0]} and Riyo are going to attack the capital of Nexus."')
+print(f'"We need to go now. {demons[0]} and {demons[1]} are going to attack the capital of {kingdomNames[0]}."')
 time.sleep(3)
 clearOutput(3)
 randomEnemy()
 
 
-print("You and the two knights go to the headquaters of the imperial knights.")
+print("You and the two knights go to the headquaters of the Imperial Knights.")
 time.sleep(2)
 print()
 print(f"{knights[0]} says,")
 time.sleep(1.5)
 print()
-print(f'"We have to subdue {demons[0]} and Riyo. I heard that they are on their way to the capital."')
+print(f'"We have to subdue {demons[0]} and {demons[1]}. I heard that they are on their way to the capital."')
 time.sleep(3)
 clearOutput(5)
 
@@ -482,7 +632,7 @@ randomEnemy()
 randomEnemy()
 randomEnemy()
 
-print(f"You and the two knights see {demons[0]} and Riyo.")
+print(f"You and the two knights see {demons[0]} and {demons[1]}.")
 time.sleep(2)
 print()
 print(f"{knights[0]} says,")
@@ -494,10 +644,10 @@ print()
 print(f"You and the two knights attack {demons[0]} first.")
 print()
 bossFight(2)
-print(f"You and the two knights attack Riyo next.")
+print(f"You and the two knights attack {demons[1]} next.")
 print()
 bossFight(2)
-print(f"{demons[0]} and Riyo retreated back to Arkdemn.")
+print(f"{demons[0]} and {demons[1]} retreated back to {kingdomNames[1]}.")
 time.sleep(3)
 clearOutput(1)
 
@@ -516,14 +666,14 @@ randomEnemy()
 print("You and the two knights go to the headquaters of the imperial knights.")
 time.sleep(2)
 print()
-print("{knights[0]} says,")
+print(f"{knights[0]} says,")
 time.sleep(1.5)
 print()
 print('"Their comrades have taken the magical stone."')
 time.sleep(3)
 clearOutput(5)
 
-print("You and the two knights go to the kingdom of Arkdemn to retrieve the stone.")
+print(f"You and the two knights go to the kingdom of {kingdomNames[1]} to retrieve the stone.")
 time.sleep(3)
 clearOutput(1)
 randomEnemy()
@@ -538,10 +688,80 @@ randomEnemy()
 print("You and the two knights arrive at the 幻想の城, the Castle of Illusion.")
 time.sleep(2)
 print()
-print("{knights[0]} says,")
+print(f"{knights[0]} says,")
 time.sleep(1.5)
 print()
-print('''"Be careful, 幻想の城, the Castle of Illusion, is the home of the demon prince of power, Carnivale. It's interior has
+print(f'''"Be careful, 幻想の城, the Castle of Illusion, is the home of the demon prince of power, {demonPrince}. It's interior has
 a lot of traps and illusions. The interior of the castle changes everytime we enter it."''')
 time.sleep(3)
-clearOutput(6)
+flush()
+playMaze()
+
+print("You and the two knights arrive at the throne room.")
+time.sleep(2)
+clearOutput(1)
+
+print(f"{knights[0]} says,")
+time.sleep(1.5)
+print()
+print(f'"We have to defeat {demonPrince}."')
+time.sleep(3)
+clearOutput(3)
+
+print("You and the two knights enter the throne room.")
+time.sleep(2)
+print()
+print(f"{demonPrince} says,")
+time.sleep(1.5)
+print()
+print(f'"I see that you have come to save the magical stone, {magicalStone}."')
+time.sleep(3)
+clearOutput(3)
+
+print(f"{knights[0]} says,")
+time.sleep(1.5)
+print()
+print(f'"We have come to defeat you, {demonPrince}."')
+time.sleep(3)
+clearOutput(3)
+
+print(f"{demonPrince} says,")
+time.sleep(1.5)
+print()
+print('"You fools, you cannot defeat me."')
+time.sleep(3)
+clearOutput(3)
+
+print(f"{knights[0]} says,")
+time.sleep(1.5)
+print()
+print(f'"We will see about that."')
+time.sleep(3)
+clearOutput(3)
+
+print(f"{demonPrince} says,")
+time.sleep(1.5)
+print()
+print('"You will regret this."')
+time.sleep(3)
+clearOutput(3)
+
+print(f"{knights[0]} says,")
+time.sleep(1.5)
+print()
+print(f'"Attack!"')
+time.sleep(3)
+clearOutput(3)
+
+print(f"You and the two knights attack {demonPrince}.")
+print()
+bossFight(3)
+
+print(f"{knights[0]} says,")
+time.sleep(1.5)
+print()
+print(f'"We did it!"')
+time.sleep(3)
+clearOutput(3)
+
+end = input("Press enter to exit the game...")

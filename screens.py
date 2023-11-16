@@ -52,7 +52,6 @@ def deathScreen():
     print()
     deathChoice = input("> ")
     if deathChoice == "1":
-        flush()
         os.execl(sys.executable, os.path.abspath(__file__), *sys.argv)
     elif deathChoice == "2":
         quit()
