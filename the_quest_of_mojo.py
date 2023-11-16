@@ -3,6 +3,10 @@ import time
 import os
 import sys
 
+# Imported functions
+from utils import clearOutput, flush
+from screens import welcomeScreen, deathScreen
+
 # Variables
 kingdomNames = ["Nexus", "Arkdemn"]
 knights = ["Ether", "Sekai"]
@@ -16,73 +20,6 @@ healCounter = random.randint(3, 6)
 randomEnemyCounter = 0
 
 # Functions
-#Clear all output function
-flush = lambda: os.system('cls' if os.name == 'nt' else 'clear')
-
-# Clear output function
-def clearOutput(numberOfLines: int):
-    cursorUpOne = '\x1b[1A'
-    erase = '\x1b[2K'
-    for _ in range(numberOfLines):
-        print(cursorUpOne + erase, end='')
-
-#Welcome screen function
-def welcomeScreen():
-    print()
-    print("Welcome to the Quest of Mojo!")
-    time.sleep(2)
-    print()
-    print("1. Start")
-    print("2. Credits")
-    print("3. Quit")
-    print()
-    titleChoice = input("> ")
-    if titleChoice == "1":
-        clearOutput(8)
-    elif titleChoice == "2":
-        clearOutput(8)
-        print("""The Quest of Mojo was created by:
-        
-    Bulatao, Chris Owyn
-    Carbonel, Radge Daryll
-    Carbonell, Jennylyn
-    Cero, Wyatt
-              
-For completion of the requirements for the course,
-Introduction to Computer Programming | CITCS 1B,
-taught by Sir Jerry Junior Pacalso.""")
-        print()
-        end = input("Press enter to return...")
-        clearOutput(12)
-        welcomeScreen()
-
-    elif titleChoice == "3":
-        quit()
-    else:
-        print("Invalid choice.")
-        time.sleep(1)
-        clearOutput(11)
-        welcomeScreen()
-
-#Death screen function
-def deathScreen():
-    print("You died!")
-    print()
-    print("Game over!")
-    print()
-    print("1. Restart")
-    print("2. Quit")
-    print()
-    deathChoice = input("> ")
-    if deathChoice == "1":
-        flush()
-        os.execl(sys.executable, os.path.abspath(__file__), *sys.argv)
-    elif deathChoice == "2":
-        quit()
-    else:
-        clearOutput(8)
-        deathScreen()
-
 #Enemy fight function
 def enemyFight():
     enemyHealth = random.randint(250, 500)
@@ -377,6 +314,9 @@ print()
 print('"Young one, what is your name?" ')
 print()
 user = input("> ")
+while not user:
+    clearOutput(1)
+    user = input("> ")
 clearOutput(5)
 
 print("You reply, " + user + ".")
@@ -385,6 +325,7 @@ clearOutput(1)
 
 print("The voice replies,")
 time.sleep(1.5)
+
 print()
 print('"Ah! ' + user + ', I see you that are awake."')
 time.sleep(3)
