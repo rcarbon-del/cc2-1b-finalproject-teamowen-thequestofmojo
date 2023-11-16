@@ -304,7 +304,7 @@ def playMaze():
     START = 'S'
     EXIT = 'E'
     PLAYER = '@'
-    BLOCK = '#' 
+    BLOCK = chr(9608)
 
     def displayMaze(maze):
         for y in range(HEIGHT):
