@@ -563,12 +563,12 @@ print(f"""As you wander, you find out that you were already in the capital of {k
 You also find out the news about {demonPrince}, the demon prince of power.""")
 time.sleep(2)
 print()
-print(f"""  {demonPrince} is the demon prince of powers. He was extremely injured and lost 
-most of his powers during the previous fights of {kingdomNames[0]} against the demons of Arkdenm. 
-{demonPrince} believes he can save his life and bring back his powers with the help of the 
-magical stone. Out of loyalty and gratitude for keeping them when they were abandoned 
-since childhood, his two trustworthy demons, {demons[0]} and {demons[1]}, are able to risk 
-everything just to make him back again.""")
+print(f"""      {demonPrince} is the demon prince of powers. He was extremely injured and lost 
+    most of his powers during the previous fights of {kingdomNames[0]} against the demons of Arkdenm. 
+    {demonPrince} believes he can save his life and bring back his powers with the help of the 
+    magical stone. Out of loyalty and gratitude for keeping them when they were abandoned 
+    since childhood, his two trustworthy demons, {demons[0]} and {demons[1]}, are able to risk 
+    everything just to make him back again.""")
 time.sleep(5)
 print()
 end = input("Press enter to keep walking...")
@@ -760,7 +760,7 @@ bossFight(3)
 print(f"{knights[0]} says,")
 time.sleep(1.5)
 print()
-print(f'"We did it!"')
+print('"We did it!"')
 time.sleep(3)
 clearOutput(3)
 
