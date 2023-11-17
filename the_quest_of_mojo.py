@@ -722,7 +722,7 @@ clearOutput(3)
 print(f"{knights[0]} says,")
 time.sleep(1.5)
 print()
-print(f'"We have come to defeat you, {demonPrince}."')
+print(f'"We have come to defeat you {demonPrince}!"')
 time.sleep(3)
 clearOutput(3)
 
