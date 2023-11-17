@@ -14,7 +14,7 @@ knights = ["Ether", "Sekai"]
 demons = ["Valentina", "Riyo"]
 demonPrince = "Carnivale"
 magicalStone = "Citrine"
-health = random.randint(800, 1000)
+health = random.randint(1000, 1500)
 attack = random.randint(10, 30)
 defense = random.randint(1, 25)
 healCounter = random.randint(5, 8)
@@ -99,8 +99,8 @@ def enemyFight():
                 if healCounter > 0:
                     heal = random.randint(75, 100)
                     health += heal
-                    if health >= 1000:
-                        health = 1000
+                    if health >= 1500:
+                        health = 1500
                         print("You healed", heal, "health!")
                         print("You have max left!")
                         print()
@@ -232,8 +232,8 @@ def bossFight(bossStrength: int):
                 if healCounter > 0:
                     heal = random.randint(125, 200)
                     health += heal
-                    if health >= 1500:
-                        health = 1500
+                    if health >= 2000:
+                        health = 2000
                         print("You healed", heal, "health!")
                         print("You have max left!")
                         print()
