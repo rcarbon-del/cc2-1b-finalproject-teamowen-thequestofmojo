@@ -4,6 +4,7 @@ import time
 
 from utils import clearOutput, flush
 
+user = ''
 #Welcome screen function
 def welcomeScreen():
     flush()
@@ -58,3 +59,11 @@ def deathScreen():
     else:
         clearOutput(8)
         deathScreen()
+
+#User input
+def userInput():
+    user = input("> ").capitalize()
+    if user != '':
+        clearOutput(1)
+        userInput()
+        return user

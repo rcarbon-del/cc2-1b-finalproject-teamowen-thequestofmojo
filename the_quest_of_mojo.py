@@ -5,8 +5,9 @@ import sys
 
 # Imported functions
 from utils import clearOutput, flush
-from screens import welcomeScreen, deathScreen
+from screens import welcomeScreen, deathScreen, userInput, user
 from mazes import maze1, maze2, maze3, maze4, maze5
+
 
 # Variables
 kingdomNames = ["Nexus", "Arkdemn"]
@@ -463,11 +464,7 @@ time.sleep(1.5)
 print()
 print('"Young one, what is your name?" ')
 print()
-user = input("> ").capitalize()
-while not user:
-    clearOutput(1)
-    user = input("> ").capitalize()
-clearOutput(5)
+userInput()
 
 print("You reply, " + user + ".")
 time.sleep(3)
