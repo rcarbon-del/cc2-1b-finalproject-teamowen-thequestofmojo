@@ -557,6 +557,7 @@ defense += 50
 time.sleep(3)
 clearOutput(3)
 randomEnemy()
+randomEnemy()
 
 print(f"""As you wander, you find out that you were already in the capital of {kingdomNames[0]}. 
 You also find out the news about {demonPrince}, the demon prince of power.""")
@@ -572,6 +573,7 @@ time.sleep(5)
 print()
 end = input("Press enter to keep walking...")
 clearOutput(11)
+randomEnemy()
 randomEnemy()
 
 print(f"You continue walking. You stumble upon two knights, {knights[0]} and {knights[1]}, and they seem to recognize you.")
