@@ -1,7 +1,8 @@
 import os
 
 #Clear all output function
-flush = lambda: os.system('cls' if os.name == 'nt' else 'clear')
+def flush():
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 # Clear output function
 def clearOutput(numberOfLines: int):

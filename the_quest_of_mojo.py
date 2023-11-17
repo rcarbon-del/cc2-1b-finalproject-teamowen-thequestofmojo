@@ -5,11 +5,12 @@ import sys
 
 # Imported functions
 from utils import clearOutput, flush
-from screens import welcomeScreen, deathScreen, userInput, user
+from screens import welcomeScreen, deathScreen
 from mazes import maze1, maze2, maze3, maze4, maze5
 
 
 # Variables
+user = ""
 kingdomNames = ["Nexus", "Arkdemn"]
 knights = ["Ether", "Sekai"]
 demons = ["Valentina", "Riyo"]
@@ -22,6 +23,16 @@ healCounter = random.randint(5, 8)
 randomEnemyCounter = 0
 
 # Functions
+#User input
+def userInput():
+    global user
+    user = input("> ").capitalize()
+    if user != '':
+        clearOutput(1)
+    else:
+        clearOutput(1)
+        userInput()
+
 #Enemy fight function
 def enemyFight():
     enemyHealth = random.randint(250, 500)

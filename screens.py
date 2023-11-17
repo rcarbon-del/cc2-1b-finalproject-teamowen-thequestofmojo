@@ -4,7 +4,6 @@ import time
 
 from utils import clearOutput, flush
 
-user = ''
 #Welcome screen function
 def welcomeScreen():
     flush()
