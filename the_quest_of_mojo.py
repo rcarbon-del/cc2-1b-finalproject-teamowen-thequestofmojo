@@ -453,7 +453,6 @@ time.sleep(1)
 print("As you open your eyes, the light of day shines through your window.")
 time.sleep(3)
 clearOutput(1)
-time.sleep(3)
 
 print("You wake up in a small room.")
 time.sleep(3)
