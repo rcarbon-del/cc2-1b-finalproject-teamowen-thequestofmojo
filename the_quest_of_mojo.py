@@ -1,7 +1,5 @@
 import random
 import time
-import os
-import sys
 
 # Imported functions
 from utils import clearOutput, flush
