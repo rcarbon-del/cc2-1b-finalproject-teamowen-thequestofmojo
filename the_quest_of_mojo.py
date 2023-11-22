@@ -10,7 +10,7 @@ from mazes import maze1, maze2, maze3, maze4, maze5
 
 
 # Variables
-user = ""
+user = ''
 kingdomNames = ["Nexus", "Arkdemn"]
 knights = ["Ether", "Sekai"]
 demons = ["Valentina", "Riyo"]
@@ -27,7 +27,7 @@ randomEnemyCounter = 0
 def userInput():
     global user
     user = input("> ").capitalize()
-    if user != '':
+    if user.isalnum() == True:
         clearOutput(1)
     else:
         clearOutput(1)
@@ -331,21 +331,7 @@ def playMaze():
                     print(maze[(x, y)], end='')
             print()
 
-    def mazeRandomizer():
-        global mazeFile
-        mazeCount = random.randint(1, 5)
-        if mazeCount == 1:
-            mazeFile = maze1
-        elif mazeCount == 2:
-            mazeFile = maze2
-        elif mazeCount == 3:
-            mazeFile = maze3
-        elif mazeCount == 4:
-            mazeFile = maze4
-        elif mazeCount == 5:
-            mazeFile = maze5
-
-    mazeRandomizer()
+    mazeFile = random.choice([maze1, maze2, maze3, maze4, maze5])
     maze = {}
     lines = mazeFile
     playerx = None
