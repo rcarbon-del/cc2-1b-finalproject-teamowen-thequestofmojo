@@ -28,7 +28,9 @@ def userInput():
     if user.isalnum() == True:
         clearOutput(1)
     else:
-        clearOutput(1)
+        print("Invalid input.")
+        time.sleep(1)
+        clearOutput(2)
         userInput()
 
 #Enemy fight function
