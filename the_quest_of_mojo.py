@@ -15,6 +15,7 @@ demonPrince = "Carnivale"
 magicalStone = "Citrine"
 
 # Main game
+playMaze()
 welcomeScreen()
 print("The Quest of Mojo")
 print()

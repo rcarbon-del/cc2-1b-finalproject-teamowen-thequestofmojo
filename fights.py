@@ -118,6 +118,15 @@ def enemyFight():
                 health -= 500
                 attack -= 15
                 defense -= 15
+                healCounter -= 2
+                if health <= 0:
+                    health = 0
+                if healCounter <= 0:
+                    healCounter = 0
+                if attack <= 0:
+                    attack = 0
+                if defense <= 0:
+                    defense = 0
                 break
             else:  
                 clearOutput(9)
