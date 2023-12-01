@@ -3,6 +3,7 @@ import sys
 import time
 
 from utils import clearOutput, flush
+user = ''
 
 #Welcome screen function
 def welcomeScreen():
@@ -58,3 +59,16 @@ def deathScreen():
     else:
         clearOutput(8)
         deathScreen()
+
+#User input
+def userInput():
+    global user
+    user = input("> ").capitalize()
+    if user.isalnum() == True:
+        clearOutput(1)
+        return user
+    else:
+        print("Invalid input.")
+        time.sleep(1)
+        clearOutput(2)
+        userInput()
