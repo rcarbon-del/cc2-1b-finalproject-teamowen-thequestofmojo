@@ -234,7 +234,7 @@ def bossFight(bossStrength: int):
                     print()
                 time.sleep(0.5)
 
-                bossdmg = random.randint(bossStrength*75, bossStrength*110)
+                bossdmg = random.randint(bossStrength*90, bossStrength*120)
                 if defense >= 150:
                     bossdmg -= defense-50
                 else:
