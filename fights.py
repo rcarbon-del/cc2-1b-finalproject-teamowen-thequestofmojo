@@ -8,6 +8,10 @@ from characterclasses import Enemy, Player
 
 #Variables
 user = ""
+health = 0
+attack = 0
+defense = 0
+healCounter = 0
 randomEnemyCounter = 0
 kingdomNames = ["Nexus", "Arkdemn"]
 knights = ["Ether", "Sekai"]
@@ -19,28 +23,37 @@ magicalStone = "Citrine"
 #User input
 def userInput():
     global user
+    global health
+    global attack
+    global defense
+    global healCounter
     user = input("> ").capitalize()
     if user.isalnum() == True:
+        player = Player(user)
+        health = player.health
+        attack = player.attack
+        defense = player.defense
+        healCounter = player.healCounter
         clearOutput(1)
-        return user
+        return user, health, attack, defense, healCounter
     else:
         print("Invalid input.")
         time.sleep(1)
         clearOutput(2)
         userInput()
 
+
 #Enemy fight function
 def enemyFight(enemyName: str):
     enemyClass = Enemy(enemyName)
     enemyHealth = enemyClass.enemyHealth
-    enemydmg = enemyClass.enemydmg
     criticalHit = 0
     global user
-    player = Player(user)
-    health = player.health
-    attack = player.attack
-    defense = player.defense
-    healCounter = player.healCounter
+    global health
+    global attack
+    global defense
+    global healCounter
+
 
     print("------------------------------------------------------------")
     print()
@@ -77,10 +90,11 @@ def enemyFight(enemyName: str):
                     print()
                 time.sleep(0.5)
 
+                enemydmg = enemyClass.enemydmg+random.randint(25, 105)
                 if defense >= 100:
                     enemydmg -= defense-40
                 else:
-                    enemydmg -= defense-20
+                    enemydmg -= defense
                 if enemydmg <= 0:
                     enemydmg = 0
                 health -= enemydmg
@@ -181,12 +195,10 @@ def bossFight(bossStrength: int):
 
     bossHealth = random.randint(bossStrength*750, bossStrength*1000)
     criticalHit = 0
-    global user
-    player = Player(user)
-    health = player.health
-    attack = player.attack
-    defense = player.defense
-    healCounter = player.healCounter
+    global health
+    global attack
+    global defense
+    global healCounter
 
     print("------------------------------------------------------------")
     print()
