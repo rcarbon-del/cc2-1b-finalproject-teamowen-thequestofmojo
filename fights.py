@@ -3,26 +3,44 @@ import time
 
 from utils import clearOutput, flush
 from screens import deathScreen
-from mazes import maze1, maze2, maze3, maze4, maze5
+from mazes import maze1, maze2, maze3, maze4, maze5, mainMapLook
+from characterclasses import Enemy, Player
 
 #Variables
-
-health = random.randint(1000, 1500)
-attack = 50+random.randint(10, 30)
-defense = 50+random.randint(1, 25)
-healCounter = random.randint(5, 8)
+user = ""
 randomEnemyCounter = 0
+kingdomNames = ["Nexus", "Arkdemn"]
+knights = ["Ether", "Sekai"]
+demons = ["Valentina", "Riyo"]
+demonPrince = "Carnivale"
+magicalStone = "Citrine"
 
 # Functions
+#User input
+def userInput():
+    global user
+    user = input("> ").capitalize()
+    if user.isalnum() == True:
+        clearOutput(1)
+        return user
+    else:
+        print("Invalid input.")
+        time.sleep(1)
+        clearOutput(2)
+        userInput()
 
 #Enemy fight function
-def enemyFight():
-    enemyHealth = random.randint(250, 500)
+def enemyFight(enemyName: str):
+    enemyClass = Enemy(enemyName)
+    enemyHealth = enemyClass.enemyHealth
+    enemydmg = enemyClass.enemydmg
     criticalHit = 0
-    global health
-    global healCounter
-    global attack
-    global defense
+    global user
+    player = Player(user)
+    health = player.health
+    attack = player.attack
+    defense = player.defense
+    healCounter = player.healCounter
 
     print("------------------------------------------------------------")
     print()
@@ -59,11 +77,12 @@ def enemyFight():
                     print()
                 time.sleep(0.5)
 
-                enemydmg = random.randint(100, 175)
                 if defense >= 100:
                     enemydmg -= defense-40
                 else:
-                    enemydmg -= defense
+                    enemydmg -= defense-20
+                if enemydmg <= 0:
+                    enemydmg = 0
                 health -= enemydmg
                 if enemyHealth >= 0:
                     if health <= 0:
@@ -162,10 +181,12 @@ def bossFight(bossStrength: int):
 
     bossHealth = random.randint(bossStrength*750, bossStrength*1000)
     criticalHit = 0
-    global health
-    global healCounter
-    global attack
-    global defense
+    global user
+    player = Player(user)
+    health = player.health
+    attack = player.attack
+    defense = player.defense
+    healCounter = player.healCounter
 
     print("------------------------------------------------------------")
     print()
@@ -206,6 +227,8 @@ def bossFight(bossStrength: int):
                     bossdmg -= defense-50
                 else:
                     bossdmg -= defense
+                if bossdmg <= 0:
+                    bossdmg = 0
                 health -= bossdmg
                 if bossHealth >= 0:
                     if health <= 0:
@@ -287,22 +310,31 @@ def bossFight(bossStrength: int):
 #Random enemy function
 def randomEnemy():
     global randomEnemyCounter
-    randomEnemyCounter += random.randint(1, 15)
-    if randomEnemyCounter >= 26:
-        enemy = random.randint(1, 3)
-        if enemy == 1:
-            print("You encountered a demon!")
-        elif enemy == 2:
-            print("You encountered a human trafficker!")
-        elif enemy == 3:
-            print("You encountered a monster!")
-        print()
-        enemyFight()
+    randomEnemyCounter += random.randint(1, 8)
+    if randomEnemyCounter >= 30:
         flush()
-        randomEnemyCounter = random.randint(1, 10)
         print("The Quest of Mojo")
         print()
-
+        enemy = random.randint(1, 3)
+        enemyName = ""
+        if enemy == 1:
+            enemyclass = Enemy("demon")
+            print(f"You encountered a {enemyclass.name}!")
+            enemyName = enemyclass.name
+        elif enemy == 2:
+            enemyclass = Enemy("human trafficker")
+            print(f"You encountered a {enemyclass.name}!")
+            enemyName = enemyclass.name
+        elif enemy == 3:
+            enemyclass = Enemy("monster")
+            print(f"You encountered a {enemyclass.name}!")
+            enemyName = enemyclass.name
+        print()
+        enemyFight(enemyName)
+        flush()
+        randomEnemyCounter = random.randint(1, 5)
+        print("The Quest of Mojo")
+        print()
 
 # Maze and character movement
 def playMaze():
@@ -430,6 +462,311 @@ def playMaze():
             randomEnemy()
             flush()
 
+        if (playerx, playery) == (exitx, exity):
+            flush()
+            print("The Quest of Mojo")
+            print()
+            play = False
+
+def mainMap():
+    WALL = '#'
+    EMPTY = ' '
+    START = 'S'
+    EXIT = 'E'
+    CHECKPOINT1 = '1'
+    CHECKPOINT2 = '2'
+    CHECKPOINT3 = '3'
+    CHECKPOINT4 = '4'
+    CHECKPOINT5 = '5'
+    CHECKPOINT6 = '6'
+    PLAYER = '@'
+    BLOCK = chr(9608)
+
+    def displayMaze(maze):
+        for y in range(HEIGHT):
+            for x in range(WIDTH):
+                if (x, y) == (playerx, playery):
+                    print(PLAYER, end='')
+                elif (x, y) == (exitx, exity):
+                    print('X', end='')
+                elif (x, y) == (check1x, check1y):
+                    print(CHECKPOINT1, end='')
+                elif (x, y) == (check2x, check2y):
+                    print(CHECKPOINT2, end='')
+                elif (x, y) == (check3x, check3y):
+                    print(CHECKPOINT3, end='')
+                elif (x, y) == (check4x, check4y):
+                    print(CHECKPOINT4, end='')
+                elif (x, y) == (check5x, check5y):
+                    print(CHECKPOINT5, end='')
+                elif (x, y) == (check6x, check6y):
+                    print(CHECKPOINT6, end='')
+                elif maze[(x, y)] == WALL:
+                    print(BLOCK, end='')
+                else:
+                    print(maze[(x, y)], end='')
+            print()
+
+    mazeFile = mainMapLook
+    maze = {}
+    lines = mazeFile
+    playerx = None
+    playery = None
+    exitx = None
+    exity = None
+    check1x = None
+    check1y = None
+    check2x = None
+    check2y = None
+    check3x = None
+    check3y = None
+    check4x = None
+    check4y = None
+    check5x = None
+    check5y = None
+    check6x = None
+    check6y = None
+    y = 0
+    play = True
+    for line in lines:
+        WIDTH = len(line.rstrip())
+        for x, character in enumerate(line.rstrip()):
+            assert character in (WALL, EMPTY, START, EXIT, CHECKPOINT1, CHECKPOINT2, CHECKPOINT3, CHECKPOINT4, CHECKPOINT5, CHECKPOINT6), 'Invalid character at column {}, line {}'.format(x + 1, y + 1)
+            if character in (WALL, EMPTY):
+                maze[(x, y)] = character
+            elif character == START:
+                playerx, playery = x, y
+                maze[(x, y)] = EMPTY
+            elif character == EXIT:
+                exitx, exity = x, y
+                maze[(x, y)] = EMPTY
+            elif character == CHECKPOINT1:
+                check1x, check1y = x, y
+                maze[(x, y)] = EMPTY
+            elif character == CHECKPOINT2:
+                check2x, check2y = x, y
+                maze[(x, y)] = EMPTY
+            elif character == CHECKPOINT3:
+                check3x, check3y = x, y
+                maze[(x, y)] = EMPTY
+            elif character == CHECKPOINT4:
+                check4x, check4y = x, y
+                maze[(x, y)] = EMPTY
+            elif character == CHECKPOINT5:
+                check5x, check5y = x, y
+                maze[(x, y)] = EMPTY
+            elif character == CHECKPOINT6:
+                check6x, check6y = x, y
+                maze[(x, y)] = EMPTY
+        y += 1
+    HEIGHT = y
+
+    assert playerx != None and playery != None, 'No start in maze file.'
+    assert exitx != None and exity != None, 'No exit in maze file.'
+
+    while play == True: 
+        print("The Quest of Mojo")
+        print()
+        displayMaze(maze)
+        print()
+        print("You are outside. you may encounter enemies while roaming.")
+        print()
+        while True:
+            print('                  W')
+            print('Enter direction: ASD')
+            move = input('> ').upper()
+
+            if move not in ['W', 'A', 'S', 'D']:
+                print('Invalid direction. Enter one of W, A, S, or D.')
+                clearOutput(4)
+                continue
+
+            if move == 'W' and maze[(playerx, playery - 1)] == EMPTY:
+                break
+            elif move == 'S' and maze[(playerx, playery + 1)] == EMPTY:
+                break
+            elif move == 'A' and maze[(playerx - 1, playery)] == EMPTY:
+                break
+            elif move == 'D' and maze[(playerx + 1, playery)] == EMPTY:
+                break
+
+            print('You cannot move in that direction.')
+            clearOutput(4)
+        if move == 'W':
+            playery -= 1
+            randomEnemy()  
+            flush()
+        elif move == 'S':
+            playery += 1
+            randomEnemy()
+            flush()
+        elif move == 'A':
+            playerx -= 1
+            randomEnemy()
+            flush()
+        elif move == 'D':
+            playerx += 1
+            randomEnemy()
+            flush()
+
+        if (playerx, playery) == (check1x, check1y):
+            flush()
+            print("The Quest of Mojo")
+            print()
+            print(f"""As you wander, you find out that you were already in the capital of {kingdomNames[0]}. 
+You also find out the news about {demonPrince}, the demon prince of power.""")
+            time.sleep(2)
+            print()
+            print(f"""          {demonPrince} is the demon prince of powers. He was extremely injured and lost 
+    most of his powers during the previous fights of {kingdomNames[0]} against the demons of Arkdenm. 
+    {demonPrince} believes he can save his life and bring back his powers with the help of the 
+    magical stone. Out of loyalty and gratitude for keeping them when they were abandoned 
+    since childhood, his two trustworthy demons, {demons[0]} and {demons[1]}, are able to risk 
+    everything just to make him back again.""")
+            time.sleep(5)
+            print()
+            end = input("Press enter to keep walking...")
+            CHECKPOINT1 = ' '
+            check1x = None
+            check1y = None
+            flush()
+        if (playerx, playery) == (check2x, check2y):
+            flush()
+            print("The Quest of Mojo")
+            print()
+            print(f"You stumble upon two knights, {knights[0]} and {knights[1]}, and they seem to recognize you.")
+            time.sleep(2)
+            print()
+            print(f"{knights[0]} says,")
+            time.sleep(1.5)
+            print()
+            print(f'"Hey {user}, where are you going?"')
+            time.sleep(3)
+            clearOutput(5)
+
+            print("You reply,")
+            time.sleep(1.5)
+            print()
+            print('"Who are you?"')
+            time.sleep(3)
+            clearOutput(3)
+
+            print(f"{knights[1]} replies,")
+            time.sleep(1.5)
+            print()
+            print(f'"Ha ha ha, did you forget that we all are knights of the kingdom of {kingdomNames[0]}?"')
+            time.sleep(3)
+            clearOutput(3)
+
+            print("You reply awkwardly,")
+            time.sleep(1.5)
+            print()
+            print('"Oh, I forgot. Sorry about that."')
+            time.sleep(3)
+            clearOutput(3)
+
+            print(f"{knights[0]} says,")
+            time.sleep(1.5)
+            print()
+            print(f'"We need to go now. {demons[0]} and {demons[1]} are going to attack the capital of {kingdomNames[0]}."')
+            time.sleep(3)
+            CHECKPOINT2 = ' '
+            check2x = None
+            check2y = None
+            flush()
+        if (playerx, playery) == (check3x, check3y):
+            flush()
+            print("The Quest of Mojo")
+            print()
+            print(f"You are now in the capital of {kingdomNames[0]}.")
+            time.sleep(2)
+            print()
+            print(f"{knights[0]} says,")
+            time.sleep(1.5)
+            print()
+            print(f'"We need to go to the imperial knights headquaters."')
+            time.sleep(3)
+            clearOutput(3)
+            CHECKPOINT3 = ' '
+            check3x = None
+            check3y = None
+            flush()
+        if (playerx, playery) == (check4x, check4y):
+            flush()
+            print("The Quest of Mojo")
+            print()
+            print("You and the two knights get to the headquaters of the Imperial Knights.")
+            time.sleep(2)
+            print()
+            print(f"{knights[0]} says,")
+            time.sleep(1.5)
+            print()
+            print(f'"We have to subdue {demons[0]} and {demons[1]}. I heard that they are on their way to the capital."')
+            time.sleep(3)
+            clearOutput(5)
+
+            print("You and the two knights go to the forest outside the capital.")
+            time.sleep(3)
+            CHECKPOINT4 = ' '
+            check4x = None
+            check4y = None
+            flush()
+        if (playerx, playery) == (check5x, check5y):
+            flush()
+            print("The Quest of Mojo")
+            print()
+            print(f"You and the two knights see {demons[0]} and {demons[1]}.")
+            time.sleep(2)
+            print()
+            print(f"{knights[0]} says,")
+            time.sleep(1.5)
+            print()
+            print('"ATTACK!"')
+            time.sleep(3)
+            print()
+            print(f"You and the two knights attack {demons[0]} first.")
+            print()
+            bossFight(2)
+            print(f"You and the two knights attack {demons[1]} next.")
+            print()
+            bossFight(2)
+            print(f"{demons[0]} and {demons[1]} retreated back to {kingdomNames[1]}.")
+            time.sleep(3)
+            clearOutput(1)
+
+            print(f"{knights[0]} says,")
+            time.sleep(1.5)
+            print()
+            print('"We have to go back to the capital."')
+            time.sleep(3)
+            clearOutput(3)
+
+            print("You and the two knights go back to the capital.")
+            time.sleep(3)
+            CHECKPOINT5 = ' '
+            check5x = None
+            check5y = None
+            flush()
+        if (playerx, playery) == (check6x, check6y):
+            flush()
+            print("The Quest of Mojo")
+            print()
+            print("You and the two knights go to the headquaters of the imperial knights.")
+            time.sleep(2)
+            print()
+            print(f"{knights[0]} says,")
+            time.sleep(1.5)
+            print()
+            print('"Their comrades have taken the magical stone."')
+            time.sleep(3)
+            clearOutput(5)
+
+            print(f"You and the two knights go to the kingdom of {kingdomNames[1]} to retrieve the stone.")
+            time.sleep(3)
+            CHECKPOINT6 = ' '
+            check6x = None
+            check6y = None
+            flush()
         if (playerx, playery) == (exitx, exity):
             flush()
             print("The Quest of Mojo")
