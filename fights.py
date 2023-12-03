@@ -435,6 +435,7 @@ def playMaze():
                 if (maze[(playerx - 1, playery)] == EMPTY
                     or maze[(playerx + 1, playery)] == EMPTY):
                     break
+            randomEnemy()
             randomEnemy()  
             flush()
         elif move == 'S':
@@ -448,6 +449,7 @@ def playMaze():
                     or maze[(playerx + 1, playery)] == EMPTY):
                     break  
             randomEnemy()
+            randomEnemy() 
             flush()
         elif move == 'A':
             while True:
@@ -459,6 +461,7 @@ def playMaze():
                 if (maze[(playerx, playery - 1)] == EMPTY
                     or maze[(playerx, playery + 1)] == EMPTY):
                     break 
+            randomEnemy()
             randomEnemy()
             flush()
         elif move == 'D':
@@ -472,6 +475,7 @@ def playMaze():
                     or maze[(playerx, playery + 1)] == EMPTY):
                     break
             randomEnemy()
+            randomEnemy() 
             flush()
 
         if (playerx, playery) == (exitx, exity):
