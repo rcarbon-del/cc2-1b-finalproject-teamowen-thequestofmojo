@@ -586,7 +586,7 @@ def mainMap():
         print()
         displayMaze(maze)
         print()
-        print("You are outside. you may encounter enemies while roaming.")
+        print("You are outside. You may encounter enemies while roaming.")
         print()
         while True:
             print('                  W')
