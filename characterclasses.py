@@ -16,7 +16,7 @@ class Enemy:
 class Player:
     def __init__(self, name):
         self.name = name
-        if self.name == "Radge" or "Wyatt" or "Chris" or "Jennylyn":
+        if self.name == "Radge":
             self.health = 9999
             self.attack = 9999
             self.defense = 9999
