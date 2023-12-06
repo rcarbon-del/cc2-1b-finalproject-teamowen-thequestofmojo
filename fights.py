@@ -497,6 +497,7 @@ def mainMap():
     CHECKPOINT6 = '6'
     PLAYER = '@'
     BLOCK = chr(9608)
+    ENCOUNTER = '!'
 
     def displayMaze(maze):
         for y in range(HEIGHT):
@@ -506,17 +507,17 @@ def mainMap():
                 elif (x, y) == (exitx, exity):
                     print('X', end='')
                 elif (x, y) == (check1x, check1y):
-                    print(CHECKPOINT1, end='')
+                    print(ENCOUNTER, end='')
                 elif (x, y) == (check2x, check2y):
-                    print(CHECKPOINT2, end='')
+                    print(ENCOUNTER, end='')
                 elif (x, y) == (check3x, check3y):
-                    print(CHECKPOINT3, end='')
+                    print(ENCOUNTER, end='')
                 elif (x, y) == (check4x, check4y):
-                    print(CHECKPOINT4, end='')
+                    print(ENCOUNTER, end='')
                 elif (x, y) == (check5x, check5y):
-                    print(CHECKPOINT5, end='')
+                    print(ENCOUNTER, end='')
                 elif (x, y) == (check6x, check6y):
-                    print(CHECKPOINT6, end='')
+                    print(ENCOUNTER, end='')
                 elif maze[(x, y)] == WALL:
                     print(BLOCK, end='')
                 else:
